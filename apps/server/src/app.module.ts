@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { z } from 'zod';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { InvoiceModule } from './invoice/invoice.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: process.env.NODE_ENV !== 'production',
       }),
     }),
+    InvoiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
