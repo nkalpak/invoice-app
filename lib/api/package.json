@@ -1,17 +1,17 @@
 {
-  "name": "@replaceme/api",
+  "name": "@invoicer/api",
   "version": "0.1.1",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "openapi-generate": "openapi-generator-cli generate -g typescript-axios -i ./node_modules/@replaceme/server/src/api/spec.json -o ./src --additional-properties=enumPropertyNaming=PascalCase",
+    "openapi-generate": "openapi-generator-cli generate -g typescript-axios -i ./node_modules/@invoicer/server/src/api/spec.json -o ./src --additional-properties=enumPropertyNaming=PascalCase",
     "build": "yarn openapi-generate"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@replaceme/server": "^0.1.0",
+    "@invoicer/server": "^0.1.0",
     "@apidevtools/swagger-cli": "^4.0.4",
     "@openapitools/openapi-generator-cli": "^2.2.5",
     "@types/node": "^16.0.0",

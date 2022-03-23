@@ -1,9 +1,9 @@
 {
-  "name": "@replaceme/client",
+  "name": "@invoicer/client",
   "entries": [
     {
       "version": "0.1.0",
-      "tag": "@replaceme/client_v0.1.0",
+      "tag": "@invoicer/client_v0.1.0",
       "date": "Wed, 23 Mar 2022 08:40:59 GMT",
       "comments": {
         "patch": [

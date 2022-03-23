@@ -1,4 +1,4 @@
-import { DefaultApiFp } from "@replaceme/api";
+import { DefaultApiFp } from "@invoicer/api";
 import { config } from "./utils/config";
 
 const api = DefaultApiFp({

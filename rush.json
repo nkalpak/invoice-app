@@ -390,17 +390,17 @@
    */
   "projects": [
     {
-      "packageName": "@replaceme/server",
+      "packageName": "@invoicer/server",
       "projectFolder": "apps/server",
       "shouldPublish": true
     },
     {
-      "packageName": "@replaceme/client",
+      "packageName": "@invoicer/client",
       "projectFolder": "apps/client",
       "shouldPublish": true
     },
     {
-      "packageName": "@replaceme/api",
+      "packageName": "@invoicer/api",
       "projectFolder": "lib/api",
       "shouldPublish": true
     }

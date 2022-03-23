@@ -6,7 +6,7 @@ import * as fs from 'fs';
 async function generateOpenApi() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder().setTitle('@replaceme').build();
+  const config = new DocumentBuilder().setTitle('@invoicer').build();
   const document = SwaggerModule.createDocument(app, config, {
     operationIdFactory: (controllerKey, operationId) => {
       const controllerName = controllerKey
