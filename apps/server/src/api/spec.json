@@ -1,1 +1,191 @@
-{"openapi":"3.0.0","paths":{"/":{"get":{"operationId":"appGetHello","parameters":[],"responses":{"200":{"description":"The result of calling \"getHello\"","content":{"application/json":{"schema":{"type":"number"}}}}}}}},"info":{"title":"@invoicer","description":"","version":"1.0.0","contact":{}},"tags":[],"servers":[],"components":{"schemas":{}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "appGetHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The result of calling \"getHello\"",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          }
+        }
+      }
+    },
+    "/invoice": {
+      "post": {
+        "operationId": "invoiceCreate",
+        "summary": "",
+        "description": "Creates a single invoice with a \"pending\" status.\n\nTo create a draft invoice, use the `invoiceCreateDraft` method.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateInvoiceDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Invoice" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "@invoicer",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateInvoiceItem": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "quantity": { "type": "number" },
+          "priceCents": { "type": "number" }
+        },
+        "required": ["name", "quantity", "priceCents"]
+      },
+      "CreateInvoiceDto": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "paymentTerms": { "type": "number" },
+          "clientStreetAddress": { "type": "string" },
+          "clientCity": { "type": "string" },
+          "clientPostCode": { "type": "string" },
+          "clientCountry": { "type": "string" },
+          "senderStreetAddress": { "type": "string" },
+          "senderCity": { "type": "string" },
+          "senderPostCode": { "type": "string" },
+          "senderCountry": { "type": "string" },
+          "clientName": { "type": "string" },
+          "clientEmail": { "type": "string" },
+          "invoiceDate": { "type": "string" },
+          "projectDescription": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CreateInvoiceItem" }
+          }
+        },
+        "required": [
+          "description",
+          "paymentTerms",
+          "clientStreetAddress",
+          "clientCity",
+          "clientPostCode",
+          "clientCountry",
+          "senderStreetAddress",
+          "senderCity",
+          "senderPostCode",
+          "senderCountry",
+          "clientName",
+          "clientEmail",
+          "invoiceDate",
+          "projectDescription",
+          "items"
+        ]
+      },
+      "InvoiceItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "quantity": { "type": "number" },
+          "priceCents": { "type": "number" },
+          "invoiceId": { "type": "string" },
+          "invoice": { "$ref": "#/components/schemas/Invoice" }
+        },
+        "required": [
+          "id",
+          "name",
+          "quantity",
+          "priceCents",
+          "invoiceId",
+          "invoice"
+        ]
+      },
+      "InvoiceClient": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "invoices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Invoice" }
+          }
+        },
+        "required": ["id", "name", "email", "invoices"]
+      },
+      "Invoice": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "senderAddressId": { "type": "string" },
+          "senderAddress": { "$ref": "#/components/schemas/Address" },
+          "clientAddressId": { "type": "string" },
+          "clientAddress": { "$ref": "#/components/schemas/Address" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "invoiceDate": { "type": "string" },
+          "description": { "type": "string" },
+          "paymentTerms": { "type": "number" },
+          "status": { "enum": ["paid", "draft", "pending"], "type": "string" },
+          "invoiceItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoiceItem" }
+          },
+          "invoiceClientId": { "type": "string" },
+          "invoiceClient": { "$ref": "#/components/schemas/InvoiceClient" }
+        },
+        "required": [
+          "id",
+          "senderAddressId",
+          "senderAddress",
+          "clientAddressId",
+          "clientAddress",
+          "createdAt",
+          "updatedAt",
+          "invoiceDate",
+          "description",
+          "paymentTerms",
+          "status",
+          "invoiceItems",
+          "invoiceClientId",
+          "invoiceClient"
+        ]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "street": { "type": "string" },
+          "city": { "type": "string" },
+          "postCode": { "type": "string" },
+          "country": { "type": "string" },
+          "invoices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Invoice" }
+          }
+        },
+        "required": ["id", "street", "city", "postCode", "country", "invoices"]
+      }
+    }
+  }
+}

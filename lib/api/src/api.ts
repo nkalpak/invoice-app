@@ -21,6 +21,345 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
+/**
+ * 
+ * @export
+ * @interface Address
+ */
+export interface Address {
+    /**
+     * 
+     * @type {string}
+     * @memberof Address
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Address
+     */
+    'street': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Address
+     */
+    'city': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Address
+     */
+    'postCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Address
+     */
+    'country': string;
+    /**
+     * 
+     * @type {Array<Invoice>}
+     * @memberof Address
+     */
+    'invoices': Array<Invoice>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateInvoiceDto
+ */
+export interface CreateInvoiceDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceDto
+     */
+    'paymentTerms': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientStreetAddress': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderStreetAddress': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientEmail': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'invoiceDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'projectDescription': string;
+    /**
+     * 
+     * @type {Array<CreateInvoiceItem>}
+     * @memberof CreateInvoiceDto
+     */
+    'items': Array<CreateInvoiceItem>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateInvoiceItem
+ */
+export interface CreateInvoiceItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceItem
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceItem
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceItem
+     */
+    'priceCents': number;
+}
+/**
+ * 
+ * @export
+ * @interface Invoice
+ */
+export interface Invoice {
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'senderAddressId': string;
+    /**
+     * 
+     * @type {Address}
+     * @memberof Invoice
+     */
+    'senderAddress': Address;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'clientAddressId': string;
+    /**
+     * 
+     * @type {Address}
+     * @memberof Invoice
+     */
+    'clientAddress': Address;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'invoiceDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Invoice
+     */
+    'paymentTerms': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'status': InvoiceStatusEnum;
+    /**
+     * 
+     * @type {Array<InvoiceItem>}
+     * @memberof Invoice
+     */
+    'invoiceItems': Array<InvoiceItem>;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invoice
+     */
+    'invoiceClientId': string;
+    /**
+     * 
+     * @type {InvoiceClient}
+     * @memberof Invoice
+     */
+    'invoiceClient': InvoiceClient;
+}
+
+export const InvoiceStatusEnum = {
+    Paid: 'paid',
+    Draft: 'draft',
+    Pending: 'pending'
+} as const;
+
+export type InvoiceStatusEnum = typeof InvoiceStatusEnum[keyof typeof InvoiceStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface InvoiceClient
+ */
+export interface InvoiceClient {
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceClient
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceClient
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceClient
+     */
+    'email': string;
+    /**
+     * 
+     * @type {Array<Invoice>}
+     * @memberof InvoiceClient
+     */
+    'invoices': Array<Invoice>;
+}
+/**
+ * 
+ * @export
+ * @interface InvoiceItem
+ */
+export interface InvoiceItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceItem
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceItem
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InvoiceItem
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InvoiceItem
+     */
+    'priceCents': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceItem
+     */
+    'invoiceId': string;
+    /**
+     * 
+     * @type {Invoice}
+     * @memberof InvoiceItem
+     */
+    'invoice': Invoice;
+}
 
 /**
  * DefaultApi - axios parameter creator
@@ -57,6 +396,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceCreate: async (createInvoiceDto: CreateInvoiceDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createInvoiceDto' is not null or undefined
+            assertParamExists('invoiceCreate', 'createInvoiceDto', createInvoiceDto)
+            const localVarPath = `/invoice`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createInvoiceDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -74,6 +448,16 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async appGetHello(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.appGetHello(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Invoice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceCreate(createInvoiceDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -94,6 +478,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         appGetHello(options?: any): AxiosPromise<number> {
             return localVarFp.appGetHello(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: any): AxiosPromise<Invoice> {
+            return localVarFp.invoiceCreate(createInvoiceDto, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -112,6 +505,17 @@ export class DefaultApi extends BaseAPI {
      */
     public appGetHello(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).appGetHello(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+     * @param {CreateInvoiceDto} createInvoiceDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceCreate(createInvoiceDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

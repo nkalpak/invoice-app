@@ -21,14 +21,18 @@ export class Invoice {
   @Column()
   senderAddressId!: string;
 
-  @ManyToOne(() => Address, (address) => address.invoices)
+  @ManyToOne(() => Address, (address) => address.invoices, {
+    cascade: true,
+  })
   @JoinColumn({ name: 'senderAddressId' })
   senderAddress!: Address;
 
   @Column()
   clientAddressId!: string;
 
-  @ManyToOne(() => Address, (address) => address.invoices)
+  @ManyToOne(() => Address, (address) => address.invoices, {
+    cascade: true,
+  })
   @JoinColumn({ name: 'clientAddressId' })
   clientAddress!: Address;
 
@@ -37,6 +41,9 @@ export class Invoice {
 
   @UpdateDateColumn()
   updatedAt!: string;
+
+  @Column('date')
+  invoiceDate!: string;
 
   @Column()
   description!: string;
@@ -47,13 +54,17 @@ export class Invoice {
   @Column({ default: InvoiceStatus.DRAFT })
   status!: InvoiceStatus;
 
-  @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice)
+  @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice, {
+    cascade: true,
+  })
   invoiceItems!: InvoiceItem[];
 
   @Column()
   invoiceClientId!: string;
 
-  @ManyToOne(() => InvoiceClient, (client) => client.invoices)
+  @ManyToOne(() => InvoiceClient, (client) => client.invoices, {
+    cascade: true,
+  })
   @JoinColumn({ name: 'invoiceClientId' })
   invoiceClient!: InvoiceClient;
 }
