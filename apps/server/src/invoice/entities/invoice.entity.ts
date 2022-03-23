@@ -11,6 +11,7 @@ import {
 import { InvoiceStatus } from '../interfaces/invoice';
 import { Address } from './address.entity';
 import { InvoiceItem } from './invoice-item.entity';
+import { InvoiceClient } from './client.entity';
 
 @Entity()
 export class Invoice {
@@ -48,4 +49,11 @@ export class Invoice {
 
   @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice)
   invoiceItems!: InvoiceItem[];
+
+  @Column()
+  invoiceClientId!: string;
+
+  @ManyToOne(() => InvoiceClient, (client) => client.invoices)
+  @JoinColumn({ name: 'invoiceClientId' })
+  invoiceClient!: InvoiceClient;
 }
