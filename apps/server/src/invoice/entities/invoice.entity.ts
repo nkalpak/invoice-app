@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { InvoiceStatus } from '../interfaces/invoice';
 import { Address } from './address.entity';
+import { InvoiceItem } from './invoice-item.entity';
 
 @Entity()
 export class Invoice {
@@ -43,4 +45,7 @@ export class Invoice {
 
   @Column({ default: InvoiceStatus.DRAFT })
   status!: InvoiceStatus;
+
+  @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice)
+  invoiceItems!: InvoiceItem[];
 }

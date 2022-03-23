@@ -4,9 +4,10 @@ import { InvoiceController } from './invoice.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { Address } from './entities/address.entity';
+import { InvoiceItem } from './entities/invoice-item.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Invoice, Address])],
+  imports: [TypeOrmModule.forFeature([Invoice, Address, InvoiceItem])],
   controllers: [InvoiceController],
   providers: [InvoiceService],
 })
