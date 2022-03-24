@@ -15,69 +15,59 @@ class InvoiceItemDto {
   priceCents: number;
 }
 
-class AddressDto {
-  @Expose()
-  id: string;
-
-  @Expose()
-  street: string;
-
-  @Expose()
-  city: string;
-
-  @Expose()
-  postCode: string;
-
-  @Expose()
-  country: string;
-}
-
-class InvoiceClientDto {
-  @Expose()
-  id: string;
-
-  @Expose()
-  name: string;
-
-  @Expose()
-  email: string;
-}
-
 export class InvoiceDto {
   @Expose()
-  id: string;
+  id!: string;
 
   @Expose()
-  createdAt: string;
+  createdAt!: string;
 
   @Expose()
-  updatedAt: string;
+  updatedAt!: string;
 
   @Expose()
-  invoiceDate: string;
+  invoiceDate!: string;
 
   @Expose()
-  description: string;
+  description!: string;
 
   @Expose()
-  paymentTerms: number;
+  paymentTerms!: number;
 
   @Expose()
-  status: InvoiceStatus;
-
-  @Expose()
-  @Type(() => AddressDto)
-  clientAddress: AddressDto;
-
-  @Expose()
-  @Type(() => AddressDto)
-  senderAddress: AddressDto;
-
-  @Expose()
-  @Type(() => InvoiceClientDto)
-  invoiceClient: InvoiceClientDto;
+  status!: InvoiceStatus;
 
   @Expose()
   @Type(() => InvoiceItemDto)
-  invoiceItems: InvoiceItemDto[];
+  invoiceItems!: InvoiceItemDto[];
+
+  @Expose()
+  clientName!: string;
+
+  @Expose()
+  clientEmail!: string;
+
+  @Expose()
+  clientStreet!: string;
+
+  @Expose()
+  clientCity!: string;
+
+  @Expose()
+  clientPostCode!: string;
+
+  @Expose()
+  clientCountry!: string;
+
+  @Expose()
+  senderStreet!: string;
+
+  @Expose()
+  senderCity!: string;
+
+  @Expose()
+  senderPostCode!: string;
+
+  @Expose()
+  senderCountry!: string;
 }

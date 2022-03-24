@@ -2,16 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { InvoiceStatus } from '../interfaces/invoice';
-import { Address } from './address.entity';
 import { InvoiceItem } from './invoice-item.entity';
-import { InvoiceClient } from './client.entity';
 
 @Entity()
 export class Invoice {
@@ -42,23 +38,32 @@ export class Invoice {
   invoiceItems!: InvoiceItem[];
 
   @Column()
-  invoiceClientId!: string;
-
-  @ManyToOne(() => InvoiceClient, { cascade: true })
-  @JoinColumn({ name: 'invoiceClientId' })
-  invoiceClient!: InvoiceClient;
+  clientName!: string;
 
   @Column()
-  senderAddressId!: string;
-
-  @ManyToOne(() => Address, { cascade: true })
-  @JoinColumn({ name: 'senderAddressId' })
-  senderAddress!: Address;
+  clientEmail!: string;
 
   @Column()
-  clientAddressId!: string;
+  clientStreet!: string;
 
-  @ManyToOne(() => Address, { cascade: true })
-  @JoinColumn({ name: 'clientAddressId' })
-  clientAddress!: Address;
+  @Column()
+  clientCity!: string;
+
+  @Column()
+  clientPostCode!: string;
+
+  @Column()
+  clientCountry!: string;
+
+  @Column()
+  senderStreet!: string;
+
+  @Column()
+  senderCity!: string;
+
+  @Column()
+  senderPostCode!: string;
+
+  @Column()
+  senderCountry!: string;
 }

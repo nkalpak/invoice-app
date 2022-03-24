@@ -24,43 +24,6 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface AddressDto
- */
-export interface AddressDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof AddressDto
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddressDto
-     */
-    'street': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddressDto
-     */
-    'city': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddressDto
-     */
-    'postCode': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddressDto
-     */
-    'country': string;
-}
-/**
- * 
- * @export
  * @interface CreateInvoiceDto
  */
 export interface CreateInvoiceDto {
@@ -183,31 +146,6 @@ export interface CreateInvoiceItem {
 /**
  * 
  * @export
- * @interface InvoiceClientDto
- */
-export interface InvoiceClientDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceClientDto
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceClientDto
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceClientDto
-     */
-    'email': string;
-}
-/**
- * 
- * @export
  * @interface InvoiceDto
  */
 export interface InvoiceDto {
@@ -255,28 +193,70 @@ export interface InvoiceDto {
     'status': InvoiceDtoStatusEnum;
     /**
      * 
-     * @type {AddressDto}
-     * @memberof InvoiceDto
-     */
-    'clientAddress': AddressDto;
-    /**
-     * 
-     * @type {AddressDto}
-     * @memberof InvoiceDto
-     */
-    'senderAddress': AddressDto;
-    /**
-     * 
-     * @type {InvoiceClientDto}
-     * @memberof InvoiceDto
-     */
-    'invoiceClient': InvoiceClientDto;
-    /**
-     * 
      * @type {Array<InvoiceItemDto>}
      * @memberof InvoiceDto
      */
     'invoiceItems': Array<InvoiceItemDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientEmail': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderCountry': string;
 }
 
 export const InvoiceDtoStatusEnum = {

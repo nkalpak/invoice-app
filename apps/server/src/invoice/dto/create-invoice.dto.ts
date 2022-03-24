@@ -8,7 +8,7 @@ export class CreateInvoiceDto {
   readonly paymentTerms: number;
 
   @IsString()
-  readonly clientStreetAddress: string;
+  readonly clientStreet: string;
 
   @IsString()
   readonly clientCity: string;
@@ -20,7 +20,7 @@ export class CreateInvoiceDto {
   readonly clientCountry: string;
 
   @IsString()
-  readonly senderStreetAddress: string;
+  readonly senderStreet: string;
 
   @IsString()
   readonly senderCity: string;
@@ -44,7 +44,7 @@ export class CreateInvoiceDto {
   readonly projectDescription: string;
 
   @ValidateNested({ each: true })
-  readonly items: CreateInvoiceItem[];
+  readonly invoiceItems: CreateInvoiceItem[];
 }
 
 class CreateInvoiceItem {
