@@ -75,6 +75,17 @@ export class InvoiceService {
     return this.invoiceRepository.save(invoice);
   }
 
+  async findOne(id: string) {
+    return this.invoiceRepository.findOne(id, {
+      relations: [
+        'invoiceClient',
+        'invoiceItems',
+        'clientAddress',
+        'senderAddress',
+      ],
+    });
+  }
+
   private async preloadInvoiceItem(invoiceItem: InvoiceItem) {
     return preloadEntity(invoiceItem, this.invoiceItemRepository);
   }

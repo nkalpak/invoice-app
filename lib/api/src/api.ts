@@ -24,45 +24,39 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface Address
+ * @interface AddressDto
  */
-export interface Address {
+export interface AddressDto {
     /**
      * 
      * @type {string}
-     * @memberof Address
+     * @memberof AddressDto
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof Address
+     * @memberof AddressDto
      */
     'street': string;
     /**
      * 
      * @type {string}
-     * @memberof Address
+     * @memberof AddressDto
      */
     'city': string;
     /**
      * 
      * @type {string}
-     * @memberof Address
+     * @memberof AddressDto
      */
     'postCode': string;
     /**
      * 
      * @type {string}
-     * @memberof Address
+     * @memberof AddressDto
      */
     'country': string;
-    /**
-     * 
-     * @type {Array<Invoice>}
-     * @memberof Address
-     */
-    'invoices': Array<Invoice>;
 }
 /**
  * 
@@ -189,176 +183,140 @@ export interface CreateInvoiceItem {
 /**
  * 
  * @export
- * @interface Invoice
+ * @interface InvoiceClientDto
  */
-export interface Invoice {
+export interface InvoiceClientDto {
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceClientDto
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceClientDto
      */
-    'senderAddressId': string;
-    /**
-     * 
-     * @type {Address}
-     * @memberof Invoice
-     */
-    'senderAddress': Address;
+    'name': string;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceClientDto
      */
-    'clientAddressId': string;
-    /**
-     * 
-     * @type {Address}
-     * @memberof Invoice
-     */
-    'clientAddress': Address;
+    'email': string;
+}
+/**
+ * 
+ * @export
+ * @interface InvoiceDto
+ */
+export interface InvoiceDto {
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
      */
     'createdAt': string;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceDto
      */
     'updatedAt': string;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceDto
      */
     'invoiceDate': string;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceDto
      */
     'description': string;
     /**
      * 
      * @type {number}
-     * @memberof Invoice
+     * @memberof InvoiceDto
      */
     'paymentTerms': number;
     /**
      * 
      * @type {string}
-     * @memberof Invoice
+     * @memberof InvoiceDto
      */
-    'status': InvoiceStatusEnum;
+    'status': InvoiceDtoStatusEnum;
     /**
      * 
-     * @type {Array<InvoiceItem>}
-     * @memberof Invoice
+     * @type {AddressDto}
+     * @memberof InvoiceDto
      */
-    'invoiceItems': Array<InvoiceItem>;
+    'clientAddress': AddressDto;
     /**
      * 
-     * @type {string}
-     * @memberof Invoice
+     * @type {AddressDto}
+     * @memberof InvoiceDto
      */
-    'invoiceClientId': string;
+    'senderAddress': AddressDto;
     /**
      * 
-     * @type {InvoiceClient}
-     * @memberof Invoice
+     * @type {InvoiceClientDto}
+     * @memberof InvoiceDto
      */
-    'invoiceClient': InvoiceClient;
+    'invoiceClient': InvoiceClientDto;
+    /**
+     * 
+     * @type {Array<InvoiceItemDto>}
+     * @memberof InvoiceDto
+     */
+    'invoiceItems': Array<InvoiceItemDto>;
 }
 
-export const InvoiceStatusEnum = {
+export const InvoiceDtoStatusEnum = {
     Paid: 'paid',
     Draft: 'draft',
     Pending: 'pending'
 } as const;
 
-export type InvoiceStatusEnum = typeof InvoiceStatusEnum[keyof typeof InvoiceStatusEnum];
+export type InvoiceDtoStatusEnum = typeof InvoiceDtoStatusEnum[keyof typeof InvoiceDtoStatusEnum];
 
 /**
  * 
  * @export
- * @interface InvoiceClient
+ * @interface InvoiceItemDto
  */
-export interface InvoiceClient {
+export interface InvoiceItemDto {
     /**
      * 
      * @type {string}
-     * @memberof InvoiceClient
+     * @memberof InvoiceItemDto
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof InvoiceClient
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceClient
-     */
-    'email': string;
-    /**
-     * 
-     * @type {Array<Invoice>}
-     * @memberof InvoiceClient
-     */
-    'invoices': Array<Invoice>;
-}
-/**
- * 
- * @export
- * @interface InvoiceItem
- */
-export interface InvoiceItem {
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceItem
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceItem
+     * @memberof InvoiceItemDto
      */
     'name': string;
     /**
      * 
      * @type {number}
-     * @memberof InvoiceItem
+     * @memberof InvoiceItemDto
      */
     'quantity': number;
     /**
      * 
      * @type {number}
-     * @memberof InvoiceItem
+     * @memberof InvoiceItemDto
      */
     'priceCents': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InvoiceItem
-     */
-    'invoiceId': string;
-    /**
-     * 
-     * @type {Invoice}
-     * @memberof InvoiceItem
-     */
-    'invoice': Invoice;
 }
 
 /**
@@ -431,6 +389,39 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceFindOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceFindOne', 'id', id)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -456,8 +447,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Invoice>> {
+        async invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceCreate(createInvoiceDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceFindOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceFindOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -484,8 +485,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: any): AxiosPromise<Invoice> {
+        invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: any): AxiosPromise<InvoiceDto> {
             return localVarFp.invoiceCreate(createInvoiceDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceFindOne(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceFindOne(id, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -516,6 +526,17 @@ export class DefaultApi extends BaseAPI {
      */
     public invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invoiceCreate(createInvoiceDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a single invoice given an ID.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceFindOne(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceFindOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

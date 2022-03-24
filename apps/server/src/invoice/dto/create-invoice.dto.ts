@@ -1,10 +1,4 @@
-import {
-  IsDateString,
-  IsEmail,
-  IsNumber,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsEmail, IsNumber, IsString, ValidateNested } from 'class-validator';
 
 export class CreateInvoiceDto {
   @IsString()
@@ -43,7 +37,7 @@ export class CreateInvoiceDto {
   @IsEmail()
   readonly clientEmail: string;
 
-  @IsDateString()
+  @IsString()
   readonly invoiceDate: string;
 
   @IsString()

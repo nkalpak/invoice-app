@@ -18,24 +18,6 @@ export class Invoice {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
-  senderAddressId!: string;
-
-  @ManyToOne(() => Address, (address) => address.invoices, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'senderAddressId' })
-  senderAddress!: Address;
-
-  @Column()
-  clientAddressId!: string;
-
-  @ManyToOne(() => Address, (address) => address.invoices, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'clientAddressId' })
-  clientAddress!: Address;
-
   @CreateDateColumn()
   createdAt!: string;
 
@@ -62,9 +44,21 @@ export class Invoice {
   @Column()
   invoiceClientId!: string;
 
-  @ManyToOne(() => InvoiceClient, (client) => client.invoices, {
-    cascade: true,
-  })
+  @ManyToOne(() => InvoiceClient, { cascade: true })
   @JoinColumn({ name: 'invoiceClientId' })
   invoiceClient!: InvoiceClient;
+
+  @Column()
+  senderAddressId!: string;
+
+  @ManyToOne(() => Address, { cascade: true })
+  @JoinColumn({ name: 'senderAddressId' })
+  senderAddress!: Address;
+
+  @Column()
+  clientAddressId!: string;
+
+  @ManyToOne(() => Address, { cascade: true })
+  @JoinColumn({ name: 'clientAddressId' })
+  clientAddress!: Address;
 }

@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Invoice } from './invoice.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class InvoiceClient {
@@ -11,7 +10,4 @@ export class InvoiceClient {
 
   @Column()
   email!: string;
-
-  @OneToMany(() => Invoice, (invoice) => invoice.invoiceClient)
-  invoices!: Invoice[];
 }
