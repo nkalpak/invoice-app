@@ -20,7 +20,7 @@ export class Invoice {
   @UpdateDateColumn()
   updatedAt!: string;
 
-  @Column('date')
+  @Column('timestamp')
   invoiceDate!: string;
 
   @Column()
@@ -34,6 +34,7 @@ export class Invoice {
 
   @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice, {
     cascade: true,
+    eager: true,
   })
   invoiceItems!: InvoiceItem[];
 

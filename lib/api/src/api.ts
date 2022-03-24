@@ -44,7 +44,7 @@ export interface CreateInvoiceDto {
      * @type {string}
      * @memberof CreateInvoiceDto
      */
-    'clientStreetAddress': string;
+    'clientStreet': string;
     /**
      * 
      * @type {string}
@@ -68,7 +68,7 @@ export interface CreateInvoiceDto {
      * @type {string}
      * @memberof CreateInvoiceDto
      */
-    'senderStreetAddress': string;
+    'senderStreet': string;
     /**
      * 
      * @type {string}
@@ -116,7 +116,7 @@ export interface CreateInvoiceDto {
      * @type {Array<CreateInvoiceItem>}
      * @memberof CreateInvoiceDto
      */
-    'items': Array<CreateInvoiceItem>;
+    'invoiceItems': Array<CreateInvoiceItem>;
 }
 /**
  * 
@@ -298,6 +298,128 @@ export interface InvoiceItemDto {
      */
     'priceCents': number;
 }
+/**
+ * 
+ * @export
+ * @interface UpdateInvoiceDto
+ */
+export interface UpdateInvoiceDto {
+    /**
+     * 
+     * @type {Array<UpdateInvoiceItemDto>}
+     * @memberof UpdateInvoiceDto
+     */
+    'invoiceItems': Array<UpdateInvoiceItemDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'invoiceDate'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientCity'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientCountry'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientPostCode'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientStreet'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientEmail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceDto
+     */
+    'paymentTerms'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderCity'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderCountry'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderPostCode'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderStreet'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateInvoiceItemDto
+ */
+export interface UpdateInvoiceItemDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'priceCents': number;
+}
 
 /**
  * DefaultApi - axios parameter creator
@@ -402,6 +524,45 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Updates an existing invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUpdate: async (id: string, updateInvoiceDto: UpdateInvoiceDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceUpdate', 'id', id)
+            // verify required parameter 'updateInvoiceDto' is not null or undefined
+            assertParamExists('invoiceUpdate', 'updateInvoiceDto', updateInvoiceDto)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateInvoiceDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -441,6 +602,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceFindOne(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * Updates an existing invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceUpdate(id, updateInvoiceDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -476,6 +648,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         invoiceFindOne(id: string, options?: any): AxiosPromise<InvoiceDto> {
             return localVarFp.invoiceFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates an existing invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceUpdate(id, updateInvoiceDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -517,6 +699,18 @@ export class DefaultApi extends BaseAPI {
      */
     public invoiceFindOne(id: string, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invoiceFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates an existing invoice.
+     * @param {string} id 
+     * @param {UpdateInvoiceDto} updateInvoiceDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceUpdate(id, updateInvoiceDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

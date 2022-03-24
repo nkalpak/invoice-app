@@ -25,7 +25,7 @@ export class InvoiceItem {
   invoiceId!: string;
 
   @ManyToOne(() => Invoice, (invoice) => invoice.invoiceItems, {
-    cascade: ['insert'],
+    cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'invoiceId' })
   invoice!: Invoice;

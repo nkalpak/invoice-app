@@ -4,6 +4,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
@@ -11,6 +12,7 @@ import { InvoiceService } from './invoice.service';
 import { ApiNotFoundResponse } from '@nestjs/swagger';
 import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
+import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 
 @Controller('invoice')
 export class InvoiceController {
@@ -42,5 +44,23 @@ export class InvoiceController {
       throw new NotFoundException();
     }
     return serializeDtoResponse(invoice, InvoiceDto);
+  }
+
+  /*
+   * Updates an existing invoice.
+   *
+   * Use this method to update an `InvoiceItem`. If you provide an `id`,
+   * the existing invoice item will be updated. Otherwise, a new invoice
+   * item will be created and appended to the invoice.
+   */
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateInvoiceDto: UpdateInvoiceDto,
+  ) {
+    return serializeDtoResponse(
+      await this.invoiceService.update(id, updateInvoiceDto),
+      InvoiceDto,
+    );
   }
 }

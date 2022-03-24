@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceItem } from './entities/invoice-item.entity';
 import { InvoiceStatus } from './interfaces/invoice';
+import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 
 @Injectable()
 export class InvoiceService {
@@ -45,5 +46,16 @@ export class InvoiceService {
         'senderAddress',
       ],
     });
+  }
+
+  async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
+    const invoice = await this.invoiceRepository.preload({
+      ...updateInvoiceDto,
+      id,
+    });
+    if (invoice == null) {
+      throw new NotFoundException(`Invoice ${id} not found`);
+    }
+    return this.invoiceRepository.save(invoice);
   }
 }

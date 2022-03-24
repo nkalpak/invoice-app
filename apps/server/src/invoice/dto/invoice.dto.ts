@@ -1,7 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { InvoiceStatus } from '../interfaces/invoice';
 
-class InvoiceItemDto {
+export class InvoiceItemDto {
   @Expose()
   id: string;
 
