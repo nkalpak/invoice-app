@@ -39,6 +39,24 @@
             }
           }
         }
+      },
+      "get": {
+        "operationId": "invoiceGetAll",
+        "parameters": [
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "default": 20, "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
       }
     },
     "/invoice/{id}": {
@@ -100,7 +118,7 @@
         }
       },
       "delete": {
-        "operationId": "invoiceRemove",
+        "operationId": "invoiceDelete",
         "summary": "",
         "description": "Marks an invoice as deleted.",
         "parameters": [
@@ -111,7 +129,48 @@
             "schema": { "type": "string" }
           }
         ],
-        "responses": { "200": { "description": "" } }
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDto" }
+              }
+            }
+          },
+          "404": {
+            "description": "The invoice with the given ID did not exist"
+          }
+        }
+      }
+    },
+    "/invoice/{id}/undelete": {
+      "post": {
+        "operationId": "invoiceUndelete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDto" }
+              }
+            }
+          },
+          "404": {
+            "description": "The invoice with the given ID did not exist"
+          },
+          "409": {
+            "description": "The invoice with the given ID was not deleted"
+          }
+        }
       }
     }
   },

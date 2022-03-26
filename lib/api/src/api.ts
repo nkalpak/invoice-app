@@ -492,6 +492,39 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceDelete', 'id', id)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns a single invoice given an ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -525,15 +558,54 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Marks an invoice as deleted.
+         * 
+         * @param {number} [offset] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceGetAll: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/invoice`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceRemove: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        invoiceUndelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('invoiceRemove', 'id', id)
-            const localVarPath = `/invoice/{id}`
+            assertParamExists('invoiceUndelete', 'id', id)
+            const localVarPath = `/invoice/{id}/undelete`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -542,7 +614,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -626,6 +698,16 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceDelete(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Returns a single invoice given an ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -636,13 +718,24 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Marks an invoice as deleted.
+         * 
+         * @param {number} [offset] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceGetAll(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceGetAll(offset, limit, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invoiceRemove(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceRemove(id, options);
+        async invoiceUndelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceUndelete(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -684,6 +777,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.invoiceCreate(createInvoiceDto, options).then((request) => request(axios, basePath));
         },
         /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceDelete(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns a single invoice given an ID.
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -693,13 +795,23 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.invoiceFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * Marks an invoice as deleted.
+         * 
+         * @param {number} [offset] 
+         * @param {number} [limit] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceGetAll(offset?: number, limit?: number, options?: any): AxiosPromise<void> {
+            return localVarFp.invoiceGetAll(offset, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceRemove(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.invoiceRemove(id, options).then((request) => request(axios, basePath));
+        invoiceUndelete(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceUndelete(id, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates an existing invoice.  Use this method to update an `InvoiceItem`. If you provide an `id`, the existing invoice item will be updated. Otherwise, a new invoice item will be created and appended to the invoice.
@@ -743,6 +855,17 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
+     * Marks an invoice as deleted.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceDelete(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Returns a single invoice given an ID.
      * @param {string} id 
      * @param {*} [options] Override http request option.
@@ -754,14 +877,26 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Marks an invoice as deleted.
+     * 
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceGetAll(offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceGetAll(offset, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invoiceRemove(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).invoiceRemove(id, options).then((request) => request(this.axios, this.basePath));
+    public invoiceUndelete(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceUndelete(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

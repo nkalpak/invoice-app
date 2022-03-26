@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -60,7 +64,7 @@ export class InvoiceService {
     return this.invoiceRepository.save(invoice);
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     const response = await this.invoiceRepository.update(
       { id },
       { isDeleted: true },
@@ -69,6 +73,22 @@ export class InvoiceService {
       return undefined;
     }
     return this.invoiceRepository.findOne({ id });
+  }
+
+  async undelete(id: string) {
+    const existingInvoice = await this.invoiceRepository.findOne({
+      where: { id },
+    });
+    if (existingInvoice == undefined) {
+      return undefined;
+    }
+    if (existingInvoice.isDeleted === false) {
+      throw new ConflictException(`The invoice is not deleted`);
+    }
+    return this.invoiceRepository.save({
+      ...existingInvoice,
+      isDeleted: false,
+    });
   }
 
   async getAll(paginationParams: PaginationParamsDto) {

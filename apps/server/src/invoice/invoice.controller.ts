@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceService } from './invoice.service';
-import { ApiNotFoundResponse } from '@nestjs/swagger';
+import { ApiConflictResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
@@ -44,7 +44,7 @@ export class InvoiceController {
   async findOne(@Param('id') id: string): Promise<InvoiceDto> {
     const invoice = await this.invoiceService.findOne(id);
     if (invoice == undefined) {
-      throw new NotFoundException(`Invoice ${id} not found`);
+      throw new InvoiceNotFoundException();
     }
     return serializeDtoResponse(invoice, InvoiceDto);
   }
@@ -70,11 +70,32 @@ export class InvoiceController {
   /*
    * Marks an invoice as deleted.
    */
+  @ApiNotFoundResponse({
+    description: 'The invoice with the given ID did not exist',
+  })
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const invoice = await this.invoiceService.remove(id);
+  async delete(@Param('id') id: string) {
+    const invoice = await this.invoiceService.delete(id);
     if (invoice == undefined) {
-      throw new NotFoundException(`Invoice ${id} not found`);
+      throw new InvoiceNotFoundException();
+    }
+    return serializeDtoResponse(invoice, InvoiceDto);
+  }
+
+  /*
+   * Restores an invoice that was previously deleted.
+   */
+  @ApiConflictResponse({
+    description: 'The invoice with the given ID was not deleted',
+  })
+  @ApiNotFoundResponse({
+    description: 'The invoice with the given ID did not exist',
+  })
+  @Post(':id/undelete')
+  async undelete(@Param('id') id: string) {
+    const invoice = await this.invoiceService.undelete(id);
+    if (invoice == undefined) {
+      throw new InvoiceNotFoundException();
     }
     return serializeDtoResponse(invoice, InvoiceDto);
   }
@@ -82,5 +103,13 @@ export class InvoiceController {
   @Get()
   async getAll(@Query() paginationParams: PaginationParamsDto) {
     return this.invoiceService.getAll(paginationParams);
+  }
+}
+
+class InvoiceNotFoundException extends NotFoundException {
+  constructor() {
+    super();
+    this.message = 'The requested invoice does not exist';
+    this.name = 'InvoiceNotFoundException';
   }
 }
