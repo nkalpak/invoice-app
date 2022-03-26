@@ -530,12 +530,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
-         * @param {number} [offset] 
-         * @param {number} [limit] 
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceList: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        invoiceList: async (status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/invoice`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -547,6 +548,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (status) {
+                localVarQueryParameter['status'] = status;
+            }
 
             if (offset !== undefined) {
                 localVarQueryParameter['offset'] = offset;
@@ -681,13 +686,14 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
-         * @param {number} [offset] 
-         * @param {number} [limit] 
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invoiceList(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceList(offset, limit, options);
+        async invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceList(status, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -750,13 +756,14 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
-         * @param {number} [offset] 
-         * @param {number} [limit] 
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceList(offset?: number, limit?: number, options?: any): AxiosPromise<void> {
-            return localVarFp.invoiceList(offset, limit, options).then((request) => request(axios, basePath));
+        invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: any): AxiosPromise<void> {
+            return localVarFp.invoiceList(status, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
          * Restores an invoice that was previously deleted.
@@ -822,14 +829,15 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
-     * @param {number} [offset] 
-     * @param {number} [limit] 
+     * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+     * @param {number} [offset] The number of entries to skip
+     * @param {number} [limit] The number of entries to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invoiceList(offset?: number, limit?: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).invoiceList(offset, limit, options).then((request) => request(this.axios, this.basePath));
+    public invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceList(status, offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

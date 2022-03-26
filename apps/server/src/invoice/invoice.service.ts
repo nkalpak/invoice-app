@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
@@ -96,7 +96,7 @@ export class InvoiceService {
         skip: params.offset,
         where: {
           ...(params.status && {
-            status: params.status,
+            status: In(params.status),
           }),
           isDeleted: false,
         },
