@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceService } from './invoice.service';
@@ -14,6 +15,7 @@ import { ApiNotFoundResponse } from '@nestjs/swagger';
 import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
+import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
 
 @Controller('invoice')
 export class InvoiceController {
@@ -70,6 +72,15 @@ export class InvoiceController {
    */
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.invoiceService.remove(id);
+    const invoice = await this.invoiceService.remove(id);
+    if (invoice == undefined) {
+      throw new NotFoundException(`Invoice ${id} not found`);
+    }
+    return serializeDtoResponse(invoice, InvoiceDto);
+  }
+
+  @Get()
+  async getAll(@Query() paginationParams: PaginationParamsDto) {
+    return this.invoiceService.getAll(paginationParams);
   }
 }

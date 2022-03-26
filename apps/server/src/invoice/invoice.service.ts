@@ -6,6 +6,7 @@ import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceItem } from './entities/invoice-item.entity';
 import { InvoiceStatus } from './interfaces/invoice';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
+import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
 
 @Injectable()
 export class InvoiceService {
@@ -38,7 +39,7 @@ export class InvoiceService {
   }
 
   async findOne(id: string) {
-    const invoice = await this.invoiceRepository.findOne(id, {
+    return this.invoiceRepository.findOne(id, {
       relations: [
         'invoiceClient',
         'invoiceItems',
@@ -46,12 +47,6 @@ export class InvoiceService {
         'senderAddress',
       ],
     });
-
-    if (invoice == undefined || invoice.isDeleted) {
-      return undefined;
-    }
-
-    return invoice;
   }
 
   async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
@@ -66,6 +61,29 @@ export class InvoiceService {
   }
 
   async remove(id: string) {
-    await this.invoiceRepository.update({ id }, { isDeleted: true });
+    const response = await this.invoiceRepository.update(
+      { id },
+      { isDeleted: true },
+    );
+    if (response.affected === 0) {
+      return undefined;
+    }
+    return this.invoiceRepository.findOne({ id });
+  }
+
+  async getAll(paginationParams: PaginationParamsDto) {
+    const [invoices, invoicesTotalCount] =
+      await this.invoiceRepository.findAndCount({
+        take: paginationParams.limit,
+        skip: paginationParams.offset,
+        where: {
+          isDeleted: false,
+        },
+      });
+
+    return {
+      invoices,
+      invoicesTotalCount,
+    };
   }
 }
