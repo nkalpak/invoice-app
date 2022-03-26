@@ -38,7 +38,7 @@ export class InvoiceService {
   }
 
   async findOne(id: string) {
-    return this.invoiceRepository.findOne(id, {
+    const invoice = await this.invoiceRepository.findOne(id, {
       relations: [
         'invoiceClient',
         'invoiceItems',
@@ -46,6 +46,12 @@ export class InvoiceService {
         'senderAddress',
       ],
     });
+
+    if (invoice == undefined || invoice.isDeleted) {
+      return undefined;
+    }
+
+    return invoice;
   }
 
   async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
@@ -53,9 +59,13 @@ export class InvoiceService {
       ...updateInvoiceDto,
       id,
     });
-    if (invoice == null) {
+    if (invoice == undefined || invoice.isDeleted) {
       throw new NotFoundException(`Invoice ${id} not found`);
     }
     return this.invoiceRepository.save(invoice);
+  }
+
+  async remove(id: string) {
+    await this.invoiceRepository.update({ id }, { isDeleted: true });
   }
 }

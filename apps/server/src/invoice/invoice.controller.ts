@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -41,7 +42,7 @@ export class InvoiceController {
   async findOne(@Param('id') id: string): Promise<InvoiceDto> {
     const invoice = await this.invoiceService.findOne(id);
     if (invoice == undefined) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Invoice ${id} not found`);
     }
     return serializeDtoResponse(invoice, InvoiceDto);
   }
@@ -62,5 +63,13 @@ export class InvoiceController {
       await this.invoiceService.update(id, updateInvoiceDto),
       InvoiceDto,
     );
+  }
+
+  /*
+   * Marks an invoice as deleted.
+   */
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.invoiceService.remove(id);
   }
 }

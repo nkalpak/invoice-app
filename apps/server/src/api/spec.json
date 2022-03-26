@@ -1,1 +1,268 @@
-{"openapi":"3.0.0","paths":{"/":{"get":{"operationId":"appGetHello","parameters":[],"responses":{"200":{"description":"The result of calling \"getHello\"","content":{"application/json":{"schema":{"type":"number"}}}}}}},"/invoice":{"post":{"operationId":"invoiceCreate","summary":"","description":"Creates a single invoice with a \"pending\" status.\r\rTo create a draft invoice, use the `invoiceCreateDraft` method.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateInvoiceDto"}}}},"responses":{"201":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/InvoiceDto"}}}}}}},"/invoice/{id}":{"get":{"operationId":"invoiceFindOne","summary":"","description":"Returns a single invoice given an ID.","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/InvoiceDto"}}}},"404":{"description":"The invoice with the given ID did not exist"}}},"patch":{"operationId":"invoiceUpdate","summary":"","description":"Updates an existing invoice.","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateInvoiceDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/InvoiceDto"}}}}}}}},"info":{"title":"@invoicer","description":"","version":"1.0.0","contact":{}},"tags":[],"servers":[],"components":{"schemas":{"CreateInvoiceItem":{"type":"object","properties":{"name":{"type":"string"},"quantity":{"type":"number"},"priceCents":{"type":"number"}},"required":["name","quantity","priceCents"]},"CreateInvoiceDto":{"type":"object","properties":{"description":{"type":"string"},"paymentTerms":{"type":"number"},"clientStreet":{"type":"string"},"clientCity":{"type":"string"},"clientPostCode":{"type":"string"},"clientCountry":{"type":"string"},"senderStreet":{"type":"string"},"senderCity":{"type":"string"},"senderPostCode":{"type":"string"},"senderCountry":{"type":"string"},"clientName":{"type":"string"},"clientEmail":{"type":"string"},"invoiceDate":{"type":"string"},"projectDescription":{"type":"string"},"invoiceItems":{"type":"array","items":{"$ref":"#/components/schemas/CreateInvoiceItem"}}},"required":["description","paymentTerms","clientStreet","clientCity","clientPostCode","clientCountry","senderStreet","senderCity","senderPostCode","senderCountry","clientName","clientEmail","invoiceDate","projectDescription","invoiceItems"]},"InvoiceItemDto":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"quantity":{"type":"number"},"priceCents":{"type":"number"}},"required":["id","name","quantity","priceCents"]},"InvoiceDto":{"type":"object","properties":{"id":{"type":"string"},"createdAt":{"type":"string"},"updatedAt":{"type":"string"},"invoiceDate":{"type":"string"},"description":{"type":"string"},"paymentTerms":{"type":"number"},"status":{"enum":["paid","draft","pending"],"type":"string"},"invoiceItems":{"type":"array","items":{"$ref":"#/components/schemas/InvoiceItemDto"}},"clientName":{"type":"string"},"clientEmail":{"type":"string"},"clientStreet":{"type":"string"},"clientCity":{"type":"string"},"clientPostCode":{"type":"string"},"clientCountry":{"type":"string"},"senderStreet":{"type":"string"},"senderCity":{"type":"string"},"senderPostCode":{"type":"string"},"senderCountry":{"type":"string"}},"required":["id","createdAt","updatedAt","invoiceDate","description","paymentTerms","status","invoiceItems","clientName","clientEmail","clientStreet","clientCity","clientPostCode","clientCountry","senderStreet","senderCity","senderPostCode","senderCountry"]},"UpdateInvoiceItemDto":{"type":"object","properties":{"id":{"type":"string"},"quantity":{"type":"number"},"name":{"type":"string"},"priceCents":{"type":"number"}},"required":["quantity","name","priceCents"]},"UpdateInvoiceDto":{"type":"object","properties":{"invoiceItems":{"type":"array","items":{"$ref":"#/components/schemas/UpdateInvoiceItemDto"}},"invoiceDate":{"type":"string"},"clientCity":{"type":"string"},"clientCountry":{"type":"string"},"clientPostCode":{"type":"string"},"clientStreet":{"type":"string"},"clientEmail":{"type":"string"},"clientName":{"type":"string"},"description":{"type":"string"},"paymentTerms":{"type":"number"},"senderCity":{"type":"string"},"senderCountry":{"type":"string"},"senderPostCode":{"type":"string"},"senderStreet":{"type":"string"}},"required":["invoiceItems"]}}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "appGetHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The result of calling \"getHello\"",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          }
+        }
+      }
+    },
+    "/invoice": {
+      "post": {
+        "operationId": "invoiceCreate",
+        "summary": "",
+        "description": "Creates a single invoice with a \"pending\" status.\n\nTo create a draft invoice, use the `invoiceCreateDraft` method.",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateInvoiceDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDto" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invoice/{id}": {
+      "get": {
+        "operationId": "invoiceFindOne",
+        "summary": "",
+        "description": "Returns a single invoice given an ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDto" }
+              }
+            }
+          },
+          "404": {
+            "description": "The invoice with the given ID did not exist"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "invoiceUpdate",
+        "summary": "",
+        "description": "Updates an existing invoice.\n\nUse this method to update an `InvoiceItem`. If you provide an `id`,\nthe existing invoice item will be updated. Otherwise, a new invoice\nitem will be created and appended to the invoice.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateInvoiceDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDto" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "invoiceRemove",
+        "summary": "",
+        "description": "Marks an invoice as deleted.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    }
+  },
+  "info": {
+    "title": "@invoicer",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateInvoiceItem": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "quantity": { "type": "number" },
+          "priceCents": { "type": "number" }
+        },
+        "required": ["name", "quantity", "priceCents"]
+      },
+      "CreateInvoiceDto": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "paymentTerms": { "type": "number" },
+          "clientStreet": { "type": "string" },
+          "clientCity": { "type": "string" },
+          "clientPostCode": { "type": "string" },
+          "clientCountry": { "type": "string" },
+          "senderStreet": { "type": "string" },
+          "senderCity": { "type": "string" },
+          "senderPostCode": { "type": "string" },
+          "senderCountry": { "type": "string" },
+          "clientName": { "type": "string" },
+          "clientEmail": { "type": "string" },
+          "invoiceDate": { "type": "string" },
+          "projectDescription": { "type": "string" },
+          "invoiceItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CreateInvoiceItem" }
+          }
+        },
+        "required": [
+          "description",
+          "paymentTerms",
+          "clientStreet",
+          "clientCity",
+          "clientPostCode",
+          "clientCountry",
+          "senderStreet",
+          "senderCity",
+          "senderPostCode",
+          "senderCountry",
+          "clientName",
+          "clientEmail",
+          "invoiceDate",
+          "projectDescription",
+          "invoiceItems"
+        ]
+      },
+      "InvoiceItemDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "quantity": { "type": "number" },
+          "priceCents": { "type": "number" }
+        },
+        "required": ["id", "name", "quantity", "priceCents"]
+      },
+      "InvoiceDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "invoiceDate": { "type": "string" },
+          "description": { "type": "string" },
+          "paymentTerms": { "type": "number" },
+          "status": { "enum": ["paid", "draft", "pending"], "type": "string" },
+          "invoiceItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoiceItemDto" }
+          },
+          "clientName": { "type": "string" },
+          "clientEmail": { "type": "string" },
+          "clientStreet": { "type": "string" },
+          "clientCity": { "type": "string" },
+          "clientPostCode": { "type": "string" },
+          "clientCountry": { "type": "string" },
+          "senderStreet": { "type": "string" },
+          "senderCity": { "type": "string" },
+          "senderPostCode": { "type": "string" },
+          "senderCountry": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "invoiceDate",
+          "description",
+          "paymentTerms",
+          "status",
+          "invoiceItems",
+          "clientName",
+          "clientEmail",
+          "clientStreet",
+          "clientCity",
+          "clientPostCode",
+          "clientCountry",
+          "senderStreet",
+          "senderCity",
+          "senderPostCode",
+          "senderCountry"
+        ]
+      },
+      "UpdateInvoiceItemDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "quantity": { "type": "number" },
+          "name": { "type": "string" },
+          "priceCents": { "type": "number" }
+        },
+        "required": ["quantity", "name", "priceCents"]
+      },
+      "UpdateInvoiceDto": {
+        "type": "object",
+        "properties": {
+          "invoiceItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/UpdateInvoiceItemDto" }
+          },
+          "invoiceDate": { "type": "string" },
+          "clientCity": { "type": "string" },
+          "clientCountry": { "type": "string" },
+          "clientPostCode": { "type": "string" },
+          "clientStreet": { "type": "string" },
+          "clientEmail": { "type": "string" },
+          "clientName": { "type": "string" },
+          "description": { "type": "string" },
+          "paymentTerms": { "type": "number" },
+          "senderCity": { "type": "string" },
+          "senderCountry": { "type": "string" },
+          "senderPostCode": { "type": "string" },
+          "senderStreet": { "type": "string" }
+        },
+        "required": ["invoiceItems"]
+      }
+    }
+  }
+}

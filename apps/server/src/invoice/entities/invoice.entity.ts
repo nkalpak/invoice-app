@@ -14,6 +14,9 @@ export class Invoice {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Column({ default: false })
+  isDeleted!: boolean;
+
   @CreateDateColumn()
   createdAt!: string;
 
