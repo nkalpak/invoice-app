@@ -21,6 +21,405 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
+/**
+ * 
+ * @export
+ * @interface CreateInvoiceDto
+ */
+export interface CreateInvoiceDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceDto
+     */
+    'paymentTerms': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'senderCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'clientEmail': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'invoiceDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceDto
+     */
+    'projectDescription': string;
+    /**
+     * 
+     * @type {Array<CreateInvoiceItem>}
+     * @memberof CreateInvoiceDto
+     */
+    'invoiceItems': Array<CreateInvoiceItem>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateInvoiceItem
+ */
+export interface CreateInvoiceItem {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInvoiceItem
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceItem
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInvoiceItem
+     */
+    'priceCents': number;
+}
+/**
+ * 
+ * @export
+ * @interface InvoiceDto
+ */
+export interface InvoiceDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'invoiceDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InvoiceDto
+     */
+    'paymentTerms': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'status': InvoiceDtoStatusEnum;
+    /**
+     * 
+     * @type {Array<InvoiceItemDto>}
+     * @memberof InvoiceDto
+     */
+    'invoiceItems': Array<InvoiceItemDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientEmail': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'clientCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderStreet': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderCity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderPostCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceDto
+     */
+    'senderCountry': string;
+}
+
+export const InvoiceDtoStatusEnum = {
+    Paid: 'paid',
+    Draft: 'draft',
+    Pending: 'pending'
+} as const;
+
+export type InvoiceDtoStatusEnum = typeof InvoiceDtoStatusEnum[keyof typeof InvoiceDtoStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface InvoiceItemDto
+ */
+export interface InvoiceItemDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceItemDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InvoiceItemDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InvoiceItemDto
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InvoiceItemDto
+     */
+    'priceCents': number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateInvoiceDto
+ */
+export interface UpdateInvoiceDto {
+    /**
+     * 
+     * @type {Array<UpdateInvoiceItemDto>}
+     * @memberof UpdateInvoiceDto
+     */
+    'invoiceItems': Array<UpdateInvoiceItemDto>;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'invoiceDate'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientCity'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientCountry'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientPostCode'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientStreet'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientEmail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'clientName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceDto
+     */
+    'paymentTerms'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderCity'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderCountry'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderPostCode'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceDto
+     */
+    'senderStreet'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateInvoiceItemDto
+ */
+export interface UpdateInvoiceItemDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'quantity': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateInvoiceItemDto
+     */
+    'priceCents': number;
+}
 
 /**
  * DefaultApi - axios parameter creator
@@ -29,12 +428,84 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appGetHello: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/`;
+        invoiceCreate: async (createInvoiceDto: CreateInvoiceDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createInvoiceDto' is not null or undefined
+            assertParamExists('invoiceCreate', 'createInvoiceDto', createInvoiceDto)
+            const localVarPath = `/invoice`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createInvoiceDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceDelete', 'id', id)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceFindOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceFindOne', 'id', id)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -57,6 +528,122 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceList: async (status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/invoice`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (status) {
+                localVarQueryParameter['status'] = status;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Restores an invoice that was previously deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUndelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceUndelete', 'id', id)
+            const localVarPath = `/invoice/{id}/undelete`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates an existing invoice.  Use this method to update an `InvoiceItem`. If you provide an `id`, the existing invoice item will be updated. Otherwise, a new invoice item will be created and appended to the invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUpdate: async (id: string, updateInvoiceDto: UpdateInvoiceDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('invoiceUpdate', 'id', id)
+            // verify required parameter 'updateInvoiceDto' is not null or undefined
+            assertParamExists('invoiceUpdate', 'updateInvoiceDto', updateInvoiceDto)
+            const localVarPath = `/invoice/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateInvoiceDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -68,12 +655,66 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async appGetHello(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.appGetHello(options);
+        async invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceCreate(createInvoiceDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceDelete(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceFindOne(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceFindOne(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceList(status, offset, limit, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Restores an invoice that was previously deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceUndelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceUndelete(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Updates an existing invoice.  Use this method to update an `InvoiceItem`. If you provide an `id`, the existing invoice item will be updated. Otherwise, a new invoice item will be created and appended to the invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvoiceDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceUpdate(id, updateInvoiceDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -87,12 +728,61 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * 
+         * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+         * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appGetHello(options?: any): AxiosPromise<number> {
-            return localVarFp.appGetHello(options).then((request) => request(axios, basePath));
+        invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceCreate(createInvoiceDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Marks an invoice as deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceDelete(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a single invoice given an ID.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceFindOne(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
+         * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+         * @param {number} [offset] The number of entries to skip
+         * @param {number} [limit] The number of entries to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: any): AxiosPromise<void> {
+            return localVarFp.invoiceList(status, offset, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Restores an invoice that was previously deleted.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUndelete(id: string, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceUndelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates an existing invoice.  Use this method to update an `InvoiceItem`. If you provide an `id`, the existing invoice item will be updated. Otherwise, a new invoice item will be created and appended to the invoice.
+         * @param {string} id 
+         * @param {UpdateInvoiceDto} updateInvoiceDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: any): AxiosPromise<InvoiceDto> {
+            return localVarFp.invoiceUpdate(id, updateInvoiceDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -105,13 +795,72 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * 
+     * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
+     * @param {CreateInvoiceDto} createInvoiceDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public appGetHello(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).appGetHello(options).then((request) => request(this.axios, this.basePath));
+    public invoiceCreate(createInvoiceDto: CreateInvoiceDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceCreate(createInvoiceDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Marks an invoice as deleted.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceDelete(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a single invoice given an ID.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceFindOne(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
+     * @param {Array<'paid' | 'draft' | 'pending'>} [status] Return only invoices with the specified statuses.  Accepts multiple statuses by separating them in the query using a comma, ex: &#x60;https://endpoint.com/invoice?status&#x3D;paid,draft&#x60;
+     * @param {number} [offset] The number of entries to skip
+     * @param {number} [limit] The number of entries to return
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceList(status, offset, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Restores an invoice that was previously deleted.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceUndelete(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceUndelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates an existing invoice.  Use this method to update an `InvoiceItem`. If you provide an `id`, the existing invoice item will be updated. Otherwise, a new invoice item will be created and appended to the invoice.
+     * @param {string} id 
+     * @param {UpdateInvoiceDto} updateInvoiceDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public invoiceUpdate(id: string, updateInvoiceDto: UpdateInvoiceDto, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceUpdate(id, updateInvoiceDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
