@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -30,8 +29,10 @@ export class InvoiceController {
   async create(
     @Body() createInvoiceDto: CreateInvoiceDto,
   ): Promise<InvoiceDto> {
-    const invoice = await this.invoiceService.create(createInvoiceDto);
-    return serializeDtoResponse(invoice, InvoiceDto);
+    return serializeDtoResponse(
+      await this.invoiceService.create(createInvoiceDto),
+      InvoiceDto,
+    );
   }
 
   /*
@@ -42,11 +43,10 @@ export class InvoiceController {
   })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<InvoiceDto> {
-    const invoice = await this.invoiceService.findOne(id);
-    if (invoice == undefined) {
-      throw new InvoiceNotFoundException();
-    }
-    return serializeDtoResponse(invoice, InvoiceDto);
+    return serializeDtoResponse(
+      await this.invoiceService.findOne(id),
+      InvoiceDto,
+    );
   }
 
   /*
@@ -56,6 +56,9 @@ export class InvoiceController {
    * the existing invoice item will be updated. Otherwise, a new invoice
    * item will be created and appended to the invoice.
    */
+  @ApiNotFoundResponse({
+    description: 'The invoice with the given ID did not exist',
+  })
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -75,11 +78,10 @@ export class InvoiceController {
   })
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const invoice = await this.invoiceService.delete(id);
-    if (invoice == undefined) {
-      throw new InvoiceNotFoundException();
-    }
-    return serializeDtoResponse(invoice, InvoiceDto);
+    return serializeDtoResponse(
+      await this.invoiceService.delete(id),
+      InvoiceDto,
+    );
   }
 
   /*
@@ -93,23 +95,20 @@ export class InvoiceController {
   })
   @Post(':id/undelete')
   async undelete(@Param('id') id: string) {
-    const invoice = await this.invoiceService.undelete(id);
-    if (invoice == undefined) {
-      throw new InvoiceNotFoundException();
-    }
-    return serializeDtoResponse(invoice, InvoiceDto);
+    return serializeDtoResponse(
+      await this.invoiceService.undelete(id),
+      InvoiceDto,
+    );
   }
 
+  /*
+   * Gets all invoices.
+   *
+   * Uses pagination by default. If no pagination parameters are provided,
+   * it will return the first 20 invoices.
+   */
   @Get()
   async getAll(@Query() paginationParams: PaginationParamsDto) {
     return this.invoiceService.getAll(paginationParams);
-  }
-}
-
-class InvoiceNotFoundException extends NotFoundException {
-  constructor() {
-    super();
-    this.message = 'The requested invoice does not exist';
-    this.name = 'InvoiceNotFoundException';
   }
 }

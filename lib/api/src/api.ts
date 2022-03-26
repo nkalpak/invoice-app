@@ -558,7 +558,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
@@ -597,7 +597,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Restores an invoice that was previously deleted.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -718,7 +718,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
@@ -729,7 +729,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Restores an invoice that was previously deleted.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -795,7 +795,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.invoiceFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
          * @param {number} [offset] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
@@ -805,7 +805,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.invoiceGetAll(offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Restores an invoice that was previously deleted.
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -877,7 +877,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Gets all invoices.  Uses pagination by default. If no pagination parameters are provided, it will return the first 20 invoices.
      * @param {number} [offset] 
      * @param {number} [limit] 
      * @param {*} [options] Override http request option.
@@ -889,7 +889,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Restores an invoice that was previously deleted.
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -1,14 +1,10 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceItem } from './entities/invoice-item.entity';
-import { InvoiceStatus } from './interfaces/invoice';
+import { InvoiceNotFoundException, InvoiceStatus } from './interfaces/invoice';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
 
@@ -43,7 +39,7 @@ export class InvoiceService {
   }
 
   async findOne(id: string) {
-    return this.invoiceRepository.findOne(id, {
+    const invoice = await this.invoiceRepository.findOne(id, {
       relations: [
         'invoiceClient',
         'invoiceItems',
@@ -51,6 +47,10 @@ export class InvoiceService {
         'senderAddress',
       ],
     });
+    if (invoice == undefined) {
+      throw new InvoiceNotFoundException();
+    }
+    return invoice;
   }
 
   async update(id: string, updateInvoiceDto: UpdateInvoiceDto) {
@@ -59,20 +59,18 @@ export class InvoiceService {
       id,
     });
     if (invoice == undefined || invoice.isDeleted) {
-      throw new NotFoundException(`Invoice ${id} not found`);
+      throw new InvoiceNotFoundException();
     }
     return this.invoiceRepository.save(invoice);
   }
 
   async delete(id: string) {
-    const response = await this.invoiceRepository.update(
-      { id },
-      { isDeleted: true },
-    );
-    if (response.affected === 0) {
-      return undefined;
+    await this.invoiceRepository.update({ id }, { isDeleted: true });
+    const invoice = await this.invoiceRepository.findOne({ id });
+    if (invoice == undefined) {
+      throw new InvoiceNotFoundException();
     }
-    return this.invoiceRepository.findOne({ id });
+    return invoice;
   }
 
   async undelete(id: string) {
@@ -80,7 +78,7 @@ export class InvoiceService {
       where: { id },
     });
     if (existingInvoice == undefined) {
-      return undefined;
+      throw new InvoiceNotFoundException();
     }
     if (existingInvoice.isDeleted === false) {
       throw new ConflictException(`The invoice is not deleted`);
