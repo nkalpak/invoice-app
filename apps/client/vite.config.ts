@@ -8,4 +8,7 @@ export default defineConfig({
       jsxImportSource: "theme-ui",
     }),
   ],
+  define: {
+    global: {},
+  },
 });

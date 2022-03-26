@@ -21,7 +21,8 @@
     "theme-ui": "^0.14.1",
     "@emotion/react": "^11.8.2",
     "@mdx-js/react": "^2.1.0",
-    "immer": "^9.0.12"
+    "immer": "^9.0.12",
+    "aws-amplify": "^4.3.17"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",
