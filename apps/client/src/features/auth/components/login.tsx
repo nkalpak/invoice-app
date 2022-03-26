@@ -1,3 +1,5 @@
-export function Login({ title }: { title: string }) {
-  return <h1>{title}</h1>;
+import { Typography } from "../../../components/typography";
+
+export function Login() {
+  return <Typography variant="headline1">Hey login</Typography>;
 }

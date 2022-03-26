@@ -6,54 +6,64 @@ type TypographyVariant =
   | "headline2"
   | "headline3"
   | "headline4"
-  | "headline5"
-  | "headline6"
-  | "subtitle1"
-  | "subtitle2"
   | "body1"
-  | "body2"
-  | "caption"
-  | "overline";
-type TypographyProps = TextProps & {
+  | "body2";
+type TypographyProps = Omit<TextProps, "variant"> & {
   variant: TypographyVariant;
 };
 
-/*
- * TODO: Implement styles for the variants
- *
- * Note: Don't add styles such as "color" to the variant styles,
- * these change based on the context that the element is rendered
- * in. Instead, use the variant styles to define the size, weight,
- * letter spacing and line height of the typography elements.
- */
 const VARIANT_STYLES: Record<TypographyVariant, ThemeUICSSProperties> = {
-  body1: {},
-  body2: {},
-  caption: {},
-  headline1: {},
-  headline2: {},
-  headline3: {},
-  headline4: {},
-  headline5: {},
-  headline6: {},
-  overline: {},
-  subtitle1: {},
-  subtitle2: {},
+  body1: {
+    fontFamily: "body",
+    fontWeight: "medium",
+    fontSize: `${12 / 16}rem`,
+    lineHeight: "15px",
+    letterSpacing: -0.25,
+  },
+  body2: {
+    fontFamily: "body",
+    fontWeight: "medium",
+    fontSize: `${11 / 16}rem`,
+    lineHeight: "18px",
+    letterSpacing: -0.23,
+  },
+  headline1: {
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: `${32 / 16}rem`,
+    lineHeight: "36px",
+    letterSpacing: -1,
+  },
+  headline2: {
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: `${20 / 16}rem`,
+    lineHeight: "22px",
+    letterSpacing: -0.63,
+  },
+  headline3: {
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: `${16 / 16}rem`,
+    lineHeight: "24px",
+    letterSpacing: -0.68,
+  },
+  headline4: {
+    fontFamily: "heading",
+    fontWeight: "bold",
+    fontSize: `${12 / 16}rem`,
+    lineHeight: "15px",
+    letterSpacing: -0.25,
+  },
 };
 
 const VARIANT_ELEMENT: Record<TypographyVariant, keyof React.ReactHTML> = {
   body1: "p",
   body2: "p",
-  caption: "span",
   headline1: "h1",
   headline2: "h2",
   headline3: "h3",
   headline4: "h4",
-  headline5: "h5",
-  headline6: "h6",
-  overline: "span",
-  subtitle1: "span",
-  subtitle2: "span",
 };
 
 /*

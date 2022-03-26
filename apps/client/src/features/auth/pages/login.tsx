@@ -1,3 +1,10 @@
+import React from "react";
+import { Login } from "../components/login";
+
 export function LoginPage() {
-  return <h1>"Login page"</h1>;
+  return (
+    <React.Fragment>
+      <Login />
+    </React.Fragment>
+  );
 }
