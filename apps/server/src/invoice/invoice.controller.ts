@@ -14,7 +14,7 @@ import { ApiConflictResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
-import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
+import { ListInvoiceRequestDto } from './dto/list-invoice-request.dto';
 
 @Controller('invoice')
 export class InvoiceController {
@@ -108,7 +108,7 @@ export class InvoiceController {
    * it will return the first 20 invoices.
    */
   @Get()
-  async getAll(@Query() paginationParams: PaginationParamsDto) {
-    return this.invoiceService.getAll(paginationParams);
+  async list(@Query() query: ListInvoiceRequestDto) {
+    return this.invoiceService.list(query);
   }
 }

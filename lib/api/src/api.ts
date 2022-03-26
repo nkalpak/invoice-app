@@ -428,35 +428,6 @@ export interface UpdateInvoiceItemDto {
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        appGetHello: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
          * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
@@ -564,7 +535,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceGetAll: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        invoiceList: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/invoice`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -679,15 +650,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async appGetHello(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.appGetHello(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
          * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
          * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
@@ -724,8 +686,8 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invoiceGetAll(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceGetAll(offset, limit, options);
+        async invoiceList(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceList(offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -760,14 +722,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        appGetHello(options?: any): AxiosPromise<number> {
-            return localVarFp.appGetHello(options).then((request) => request(axios, basePath));
-        },
-        /**
          * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
          * @param {CreateInvoiceDto} createInvoiceDto 
          * @param {*} [options] Override http request option.
@@ -801,8 +755,8 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceGetAll(offset?: number, limit?: number, options?: any): AxiosPromise<void> {
-            return localVarFp.invoiceGetAll(offset, limit, options).then((request) => request(axios, basePath));
+        invoiceList(offset?: number, limit?: number, options?: any): AxiosPromise<void> {
+            return localVarFp.invoiceList(offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
          * Restores an invoice that was previously deleted.
@@ -833,16 +787,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public appGetHello(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).appGetHello(options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * Creates a single invoice with a \"pending\" status.  To create a draft invoice, use the `invoiceCreateDraft` method.
      * @param {CreateInvoiceDto} createInvoiceDto 
@@ -884,8 +828,8 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invoiceGetAll(offset?: number, limit?: number, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).invoiceGetAll(offset, limit, options).then((request) => request(this.axios, this.basePath));
+    public invoiceList(offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).invoiceList(offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -6,7 +6,7 @@ import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceItem } from './entities/invoice-item.entity';
 import { InvoiceNotFoundException, InvoiceStatus } from './interfaces/invoice';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
-import { PaginationParamsDto } from '../common/dto/pagination-params.dto';
+import { ListInvoiceRequestDto } from './dto/list-invoice-request.dto';
 
 @Injectable()
 export class InvoiceService {
@@ -89,12 +89,15 @@ export class InvoiceService {
     });
   }
 
-  async getAll(paginationParams: PaginationParamsDto) {
+  async list(params: ListInvoiceRequestDto) {
     const [invoices, invoicesTotalCount] =
       await this.invoiceRepository.findAndCount({
-        take: paginationParams.limit,
-        skip: paginationParams.offset,
+        take: params.limit,
+        skip: params.offset,
         where: {
+          ...(params.status && {
+            status: params.status,
+          }),
           isDeleted: false,
         },
       });
