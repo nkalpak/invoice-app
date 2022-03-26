@@ -2,12 +2,15 @@ import { EmptyPropsWithChildren } from "../types/react";
 import { RollbarProvider } from "../lib/rollbar";
 import React from "react";
 import { ModalContainer } from "../features/modal/modal-container";
+import { ReactLocationProvider } from "../lib/react-location";
 
 function AppProvider({ children }: EmptyPropsWithChildren) {
   return (
     <RollbarProvider>
-      <React.Fragment>{children}</React.Fragment>
-      <ModalContainer />
+      <ReactLocationProvider>
+        <React.Fragment>{children}</React.Fragment>
+        <ModalContainer />
+      </ReactLocationProvider>
     </RollbarProvider>
   );
 }
