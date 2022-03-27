@@ -24,7 +24,9 @@
     "immer": "^9.0.12",
     "aws-amplify": "^4.3.17",
     "@tanstack/react-location": "^3.7.4",
-    "@tanstack/react-location-devtools": "^3.4.4"
+    "@tanstack/react-location-devtools": "^3.4.4",
+    "react-hook-form": "^7.28.1",
+    "@hookform/resolvers": "^2.8.8"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",

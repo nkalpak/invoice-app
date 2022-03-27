@@ -15,14 +15,14 @@ type TypographyProps = Omit<TextProps, "variant"> & {
 const VARIANT_STYLES: Record<TypographyVariant, ThemeUICSSProperties> = {
   body1: {
     fontFamily: "body",
-    fontWeight: "medium",
+    fontWeight: 500,
     fontSize: `${12 / 16}rem`,
     lineHeight: "15px",
     letterSpacing: -0.25,
   },
   body2: {
     fontFamily: "body",
-    fontWeight: "medium",
+    fontWeight: 500,
     fontSize: `${11 / 16}rem`,
     lineHeight: "18px",
     letterSpacing: -0.23,

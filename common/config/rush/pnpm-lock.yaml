@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@apidevtools/swagger-cli': ^4.0.4
   '@emotion/react': ^11.8.2
-  '@ladle/react': ^0.8.5
+  '@hookform/resolvers': ^2.8.8
   '@mdx-js/react': ^2.1.0
   '@nestjs/cli': ^8.0.0
   '@nestjs/common': ^8.0.0
@@ -46,6 +46,7 @@ specifiers:
   react: ^17.0.2
   react-dom: ^17.0.2
   react-error-boundary: ^3.1.4
+  react-hook-form: ^7.28.1
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
   rollbar: ^2.24.1
@@ -67,7 +68,7 @@ specifiers:
 dependencies:
   '@apidevtools/swagger-cli': 4.0.4
   '@emotion/react': 11.8.2_6acae0b0a4a23c4372144902affe8735
-  '@ladle/react': 0.8.5_4211ed8b26069fec1bc8ff4659f40efc
+  '@hookform/resolvers': 2.8.8_react-hook-form@7.28.1
   '@mdx-js/react': 2.1.0_react@17.0.2
   '@nestjs/cli': 8.2.4
   '@nestjs/common': 8.4.2_5199533202e21c7185c9d97f881e2827
@@ -110,6 +111,7 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-error-boundary: 3.1.4_react@17.0.2
+  react-hook-form: 7.28.1_react@17.0.2
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rollbar: 2.24.1
@@ -3660,6 +3662,14 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@hookform/resolvers/2.8.8_react-hook-form@7.28.1:
+    resolution: {integrity: sha512-meAEDur1IJBfKyTo9yPYAuzjIfrxA7m9Ov+1nxaW/YupsqMeseWifoUjWK03+hz/RJizsVQAaUjVxFEkyu0GWg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.28.1_react@17.0.2
     dev: false
 
   /@humanwhocodes/config-array/0.9.5:
@@ -9219,6 +9229,15 @@ packages:
       - '@types/react'
     dev: false
 
+  /react-hook-form/7.28.1_react@17.0.2:
+    resolution: {integrity: sha512-mgwxvXuvt3FMY/mdnWbPc++Zf1U5xYzkhOaL05mtFMLvXc9MvUhMUlKtUVuO12sOrgT3nPXBgVFawtiJ4ONrgg==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -10975,11 +10994,12 @@ packages:
     dev: false
 
   file:projects/client.tgz:
-    resolution: {integrity: sha512-jTvmfxcyYYgfMMguKYn5LxBVSPuB45mWzYaeZtR1hNcbzDBEZFiNtwzHjt6whgMf2wKbqI/nr1FdFtCfs1qSmg==, tarball: file:projects/client.tgz}
+    resolution: {integrity: sha512-KiN19bXTorTDi9n/sqRSBYEAqPqgHa8g5q2TQafewyEMJLa6lsOTlqd92UL04yXy6JyCCmQVNhTFKjJbJ9UQiA==, tarball: file:projects/client.tgz}
     name: '@rush-temp/client'
     version: 0.0.0
     dependencies:
       '@emotion/react': 11.8.2_6acae0b0a4a23c4372144902affe8735
+      '@hookform/resolvers': 2.8.8_react-hook-form@7.28.1
       '@ladle/react': 0.8.5_4211ed8b26069fec1bc8ff4659f40efc
       '@mdx-js/react': 2.1.0_react@17.0.2
       '@radix-ui/react-dialog': 0.1.7_4211ed8b26069fec1bc8ff4659f40efc
@@ -10996,6 +11016,7 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-error-boundary: 3.1.4_react@17.0.2
+      react-hook-form: 7.28.1_react@17.0.2
       react-location: 3.3.4_react-dom@17.0.2+react@17.0.2
       rollbar: 2.24.1
       theme-ui: 0.14.1_983f4855adebddf1e87b6768e1829224
