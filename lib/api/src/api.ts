@@ -301,6 +301,25 @@ export interface InvoiceItemDto {
 /**
  * 
  * @export
+ * @interface ListInvoiceResponseDto
+ */
+export interface ListInvoiceResponseDto {
+    /**
+     * 
+     * @type {Array<InvoiceDto>}
+     * @memberof ListInvoiceResponseDto
+     */
+    'invoices': Array<InvoiceDto>;
+    /**
+     * 
+     * @type {number}
+     * @memberof ListInvoiceResponseDto
+     */
+    'invoicesCount': number;
+}
+/**
+ * 
+ * @export
  * @interface UpdateInvoiceDto
  */
 export interface UpdateInvoiceDto {
@@ -692,7 +711,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListInvoiceResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invoiceList(status, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -762,7 +781,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: any): AxiosPromise<void> {
+        invoiceList(status?: Array<'paid' | 'draft' | 'pending'>, offset?: number, limit?: number, options?: any): AxiosPromise<ListInvoiceResponseDto> {
             return localVarFp.invoiceList(status, offset, limit, options).then((request) => request(axios, basePath));
         },
         /**

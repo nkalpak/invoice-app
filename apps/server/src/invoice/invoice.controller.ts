@@ -15,6 +15,7 @@ import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { ListInvoiceRequestDto } from './dto/list-invoice-request.dto';
+import { ListInvoiceResponseDto } from './dto/list-invoice-response.dto';
 
 @Controller('invoice')
 export class InvoiceController {
@@ -109,6 +110,9 @@ export class InvoiceController {
    */
   @Get()
   async list(@Query() query: ListInvoiceRequestDto) {
-    return this.invoiceService.list(query);
+    return serializeDtoResponse(
+      await this.invoiceService.list(query),
+      ListInvoiceResponseDto,
+    );
   }
 }

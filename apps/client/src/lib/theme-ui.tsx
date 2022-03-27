@@ -14,7 +14,7 @@ const formControlStyles: ThemeUIStyleObject = {
   border: "1px solid",
   borderColor: "controlBorder",
 
-  "&:active, &:focus": {
+  "&:not([disabled]):active, &:not([disabled]):focus": {
     borderColor: "controlActive",
     outline: "none",
   },
@@ -53,6 +53,7 @@ const theme: Theme = {
   colors: {
     danger: "#EC5757",
     primary: "#7C5DFA",
+    success: "#4BB543",
 
     label: "#7E88C3",
     controlBorder: "#DFE3FA",

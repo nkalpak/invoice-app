@@ -1,3 +1,4 @@
 import * as AuthPages from "./pages";
+import * as AuthService from "./service";
 
-export { AuthPages };
+export { AuthPages, AuthService };

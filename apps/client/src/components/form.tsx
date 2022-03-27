@@ -2,13 +2,21 @@ import * as ThemeUi from "theme-ui";
 import { Box } from "theme-ui";
 import React from "react";
 import { Typography } from "./typography";
+import { DangerCard } from "./card";
 
 type FormProps = ThemeUi.BoxProps & {
-  SubmitButton: React.ReactChild;
+  submitButton: React.ReactChild;
   title?: string;
+  error?: string;
 };
 
-export function Form({ children, SubmitButton, title, ...props }: FormProps) {
+export function Form({
+  children,
+  submitButton,
+  title,
+  error,
+  ...props
+}: FormProps) {
   return (
     <Box
       as="form"
@@ -26,8 +34,16 @@ export function Form({ children, SubmitButton, title, ...props }: FormProps) {
       {children}
 
       <Box sx={{ mt: 6 }}>
-        {React.isValidElement(SubmitButton)
-          ? React.cloneElement(SubmitButton, { type: "submit" })
+        {error && (
+          <DangerCard>
+            <Typography sx={{ fontWeight: "bold" }} variant="body2">
+              {error}
+            </Typography>
+          </DangerCard>
+        )}
+
+        {React.isValidElement(submitButton)
+          ? React.cloneElement(submitButton, { type: "submit" })
           : null}
       </Box>
     </Box>

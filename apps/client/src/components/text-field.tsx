@@ -14,7 +14,6 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
           sx={{
             "&:-webkit-autofill,&-webkit-autofill:hover,&-webkit-autofill:focus,&-webkit-autofill:active":
               {
-                fontFamily: "Spartan, sans-serif !important",
                 transitionDelay: "9999s",
                 transitionProperty: "background-color",
               },

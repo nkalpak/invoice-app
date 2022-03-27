@@ -1,4 +1,7 @@
 import * as ThemeUi from "theme-ui";
+import React from "react";
+import { MdError } from "react-icons/md";
+import { Box } from "theme-ui";
 
 export function Card(props: ThemeUi.CardProps) {
   return (
@@ -36,6 +39,31 @@ export function PageCard(props: ThemeUi.CardProps) {
       {...props}
     >
       {props.children}
+    </Card>
+  );
+}
+
+export function DangerCard(props: ThemeUi.CardProps) {
+  return (
+    <Card
+      sx={{
+        border: "2px solid",
+        borderColor: "danger",
+        color: "danger",
+        px: 4,
+        mb: 6,
+
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+      {...props}
+    >
+      {props.children}
+
+      <Box sx={{ ml: 4 }}>
+        <MdError sx={{ color: "danger" }} />
+      </Box>
     </Card>
   );
 }
