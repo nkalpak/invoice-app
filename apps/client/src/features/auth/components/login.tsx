@@ -9,7 +9,7 @@ import React from "react";
 import { createMachine, StateValue } from "xstate";
 import { useMachine } from "@xstate/react";
 import { AmplifyCodeVerification } from "./code-verification";
-import { AuthService } from "../index";
+import { AuthService, AuthUtils } from "../index";
 import { useNavigate } from "@tanstack/react-location";
 import { Routing } from "../../../utils/routing";
 import { Box } from "theme-ui";
@@ -78,11 +78,6 @@ const loginMachine = createMachine({
   },
 });
 
-const AMPLIFY_EXCEPTION = {
-  USER_NOT_CONFIRMED: "UserNotConfirmedException",
-  NOT_AUTHORIZED: "NotAuthorizedException",
-};
-
 function useRedirectToHome(loginMachineState: StateValue) {
   const navigate = useNavigate();
   React.useEffect(() => {
@@ -109,9 +104,9 @@ export function Login() {
       // TODO: Fix any, can't bother right now
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const err = error as any;
-      if (err.code === AMPLIFY_EXCEPTION.NOT_AUTHORIZED) {
+      if (err.code === AuthUtils.AMPLIFY_EXCEPTION.NOT_AUTHORIZED) {
         send("LOGIN_FAIL");
-      } else if (err.code === AMPLIFY_EXCEPTION.USER_NOT_CONFIRMED) {
+      } else if (err.code === AuthUtils.AMPLIFY_EXCEPTION.USER_NOT_CONFIRMED) {
         send("REQUIRES_VERIFICATION");
       }
     },
