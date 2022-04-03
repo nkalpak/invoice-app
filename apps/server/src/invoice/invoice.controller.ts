@@ -20,6 +20,7 @@ import { ListInvoiceResponseDto } from './dto/list-invoice-response.dto';
 import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('invoice')
+@UseGuards(AuthGuard)
 export class InvoiceController {
   constructor(private readonly invoiceService: InvoiceService) {}
 
@@ -110,7 +111,6 @@ export class InvoiceController {
    * Uses pagination by default. If no pagination parameters are provided,
    * it will return the first 20 invoices.
    */
-  @UseGuards(AuthGuard)
   @Get()
   async list(@Query() query: ListInvoiceRequestDto) {
     return serializeDtoResponse(
