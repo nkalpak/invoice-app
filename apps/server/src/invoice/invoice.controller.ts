@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceService } from './invoice.service';
@@ -16,6 +17,7 @@ import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { ListInvoiceRequestDto } from './dto/list-invoice-request.dto';
 import { ListInvoiceResponseDto } from './dto/list-invoice-response.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('invoice')
 export class InvoiceController {
@@ -108,6 +110,7 @@ export class InvoiceController {
    * Uses pagination by default. If no pagination parameters are provided,
    * it will return the first 20 invoices.
    */
+  @UseGuards(AuthGuard)
   @Get()
   async list(@Query() query: ListInvoiceRequestDto) {
     return serializeDtoResponse(
