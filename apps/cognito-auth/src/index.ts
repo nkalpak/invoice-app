@@ -31,7 +31,7 @@ export const handler = async (
     timestamp: Date.now(),
   };
 
-  await api.post("/webhook/cognito", payload, {
+  await api.post("/auth/register-hook", payload, {
     headers: {
       "Invoicer-Signature": computeRequestSigningHmac(
         JSON.stringify(payload),

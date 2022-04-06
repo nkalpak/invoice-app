@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoiceModule } from './invoice/invoice.module';
 import { GlobalModule } from './global/global.module';
+import { AuthModule } from './auth/auth.module';
 
 const configSchema = z.object({
   DATABASE_HOST: z.string(),
@@ -14,6 +15,7 @@ const configSchema = z.object({
   COGNITO_USER_POOL_ID: z.string(),
   COGNITO_REGION: z.string(),
   COGNITO_APP_CLIENT_ID: z.string(),
+  AUTH_WEBHOOK_SIGNING_KEY: z.string(),
 });
 export type Config = z.infer<typeof configSchema>;
 
@@ -38,6 +40,7 @@ export type Config = z.infer<typeof configSchema>;
       }),
     }),
     InvoiceModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
