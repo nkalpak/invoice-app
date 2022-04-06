@@ -3,22 +3,27 @@ import { ConfigModule } from '@nestjs/config';
 import { z } from 'zod';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoiceModule } from './invoice/invoice.module';
+import { GlobalModule } from './global/global.module';
+
+const configSchema = z.object({
+  DATABASE_HOST: z.string(),
+  DATABASE_USER: z.string(),
+  DATABASE_NAME: z.string(),
+  DATABASE_PORT: z.string().transform(Number),
+  DATABASE_PASSWORD: z.string(),
+  COGNITO_USER_POOL_ID: z.string(),
+  COGNITO_REGION: z.string(),
+  COGNITO_APP_CLIENT_ID: z.string(),
+});
+export type Config = z.infer<typeof configSchema>;
 
 @Module({
   imports: [
+    GlobalModule,
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: getEnvironmentFileName(process.env.NODE_ENV),
-      validate: (config) => {
-        const schema = z.object({
-          DATABASE_HOST: z.string(),
-          DATABASE_USER: z.string(),
-          DATABASE_NAME: z.string(),
-          DATABASE_PORT: z.string().transform(Number),
-          DATABASE_PASSWORD: z.string(),
-        });
-
-        return schema.parse(config);
-      },
+      validate: (config) => configSchema.parse(config),
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({

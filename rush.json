@@ -403,6 +403,14 @@
       "packageName": "@invoicer/api",
       "projectFolder": "lib/api",
       "shouldPublish": true
+    },
+    {
+      "packageName": "@invoicer/cognito-auth",
+      "projectFolder": "apps/cognito-auth"
+    },
+    {
+      "packageName": "@invoicer/hmac",
+      "projectFolder": "lib/hmac"
     }
     // {
     //   /**

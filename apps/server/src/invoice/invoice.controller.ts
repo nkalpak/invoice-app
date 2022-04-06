@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { InvoiceService } from './invoice.service';
@@ -15,8 +16,11 @@ import { InvoiceDto } from './dto/invoice.dto';
 import { serializeDtoResponse } from '../utils/serialize-dto-reponse';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { ListInvoiceRequestDto } from './dto/list-invoice-request.dto';
+import { ListInvoiceResponseDto } from './dto/list-invoice-response.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('invoice')
+@UseGuards(AuthGuard)
 export class InvoiceController {
   constructor(private readonly invoiceService: InvoiceService) {}
 
@@ -109,6 +113,9 @@ export class InvoiceController {
    */
   @Get()
   async list(@Query() query: ListInvoiceRequestDto) {
-    return this.invoiceService.list(query);
+    return serializeDtoResponse(
+      await this.invoiceService.list(query),
+      ListInvoiceResponseDto,
+    );
   }
 }

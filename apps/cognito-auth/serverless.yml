@@ -1,0 +1,27 @@
+service: cognito-auth
+
+frameworkVersion: "2 || 3"
+
+package:
+  patterns:
+    - "!./**"
+    - "build/**/*"
+
+provider:
+  environment:
+    API_SERVER_HOST: ${ssm:/api_server_host}
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'secretsmanager:GetSecretValue'
+        - 'secretsmanager:DescribeSecret'
+      Resource:
+        - Fn::Sub: 'arn:aws:secretsmanager:${self:provider.region}:${AWS::AccountId}:secret:*'
+
+functions:
+  cognito-post-signup:
+    handler: build/index.handler

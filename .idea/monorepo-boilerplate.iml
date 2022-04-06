@@ -8,6 +8,12 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/server/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api/dist" />
       <excludeFolder url="file://$MODULE_DIR$/apps/client/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/common/deploy" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/cognito-auth/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/cognito-auth/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/hmac/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/hmac/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/cognito-auth/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
