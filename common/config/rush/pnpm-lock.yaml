@@ -4,6 +4,7 @@ specifiers:
   '@apidevtools/swagger-cli': ^4.0.4
   '@emotion/react': ^11.8.2
   '@hookform/resolvers': ^2.8.8
+  '@jackfranklin/test-data-bot': ^1.4.0
   '@mdx-js/react': ^2.1.0
   '@nestjs/cli': ^8.0.0
   '@nestjs/common': ^8.0.0
@@ -28,7 +29,6 @@ specifiers:
   '@tanstack/react-location': ^3.7.4
   '@tanstack/react-location-devtools': ^3.4.4
   '@types/aws-lambda': ^8.10.93
-  '@types/bluebird': ^3.5.36
   '@types/express': ^4.17.13
   '@types/heft-jest': ^1.0.2
   '@types/jest': 27.4.0
@@ -44,7 +44,6 @@ specifiers:
   aws-amplify: ^4.3.17
   aws-sdk: ^2.1107.0
   axios: ^0.26.1
-  bluebird: ^3.7.2
   class-transformer: ^0.5.1
   class-validator: ^0.13.2
   esbuild: ^0.14.32
@@ -90,6 +89,7 @@ dependencies:
   '@apidevtools/swagger-cli': 4.0.4
   '@emotion/react': 11.8.2_6acae0b0a4a23c4372144902affe8735
   '@hookform/resolvers': 2.8.8_react-hook-form@7.28.1
+  '@jackfranklin/test-data-bot': 1.4.0
   '@mdx-js/react': 2.1.0_react@17.0.2
   '@nestjs/cli': 8.2.4_esbuild@0.14.32
   '@nestjs/common': 8.4.2_5199533202e21c7185c9d97f881e2827
@@ -114,7 +114,6 @@ dependencies:
   '@tanstack/react-location': 3.7.4_react-dom@17.0.2+react@17.0.2
   '@tanstack/react-location-devtools': 3.4.4_1e92e799ad1227ab95a957a85b9a845e
   '@types/aws-lambda': 8.10.93
-  '@types/bluebird': 3.5.36
   '@types/express': 4.17.13
   '@types/heft-jest': 1.0.2
   '@types/jest': 27.4.0
@@ -130,7 +129,6 @@ dependencies:
   aws-amplify: 4.3.17
   aws-sdk: 2.1107.0
   axios: 0.26.1
-  bluebird: 3.7.2
   class-transformer: 0.5.1
   class-validator: 0.13.2
   esbuild: 0.14.32
@@ -3745,6 +3743,16 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /@jackfranklin/test-data-bot/1.4.0:
+    resolution: {integrity: sha512-wVb1pZAVDJeYqr0e4/m8seqW7VFUFs4cQFPCRHTkkl7GRtWX8xr0gL5k0Z4YS3lRlx2bs04ica675l9Eco5Bww==}
+    engines: {node: '>=10.13'}
+    dependencies:
+      '@types/faker': 5.5.9
+      '@types/lodash': 4.14.178
+      faker: 5.5.3
+      lodash: 4.17.21
+    dev: false
+
   /@jest/console/27.5.1:
     resolution: {integrity: sha512-kZ/tNpS3NXn0mlXXXPNuDZnb4c0oZ20r4K5eemM2k30ZC3G0T02nXUvyhf5YdbXWHPEJLc9qGLxEZ216MdL+Zg==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -5392,6 +5400,10 @@ packages:
       '@types/serve-static': 1.13.10
     dev: false
 
+  /@types/faker/5.5.9:
+    resolution: {integrity: sha512-uCx6mP3UY5SIO14XlspxsGjgaemrxpssJI0Ol+GfhxtcKpv9pgRZYsS4eeKeHVLje6Qtc8lGszuBI461+gVZBA==}
+    dev: false
+
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
@@ -5443,6 +5455,10 @@ packages:
 
   /@types/jwk-to-pem/2.0.1:
     resolution: {integrity: sha512-QXmRPhR/LPzvXBHTPfG2BBfMTkNLUD7NyRcPft8m5xFCeANa1BZyLgT0Gw+OxdWx6i1WCpT27EqyggP4UUHMrA==}
+    dev: false
+
+  /@types/lodash/4.14.178:
+    resolution: {integrity: sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==}
     dev: false
 
   /@types/mdx/2.0.1:
@@ -7021,6 +7037,10 @@ packages:
     engines: {node: '>=0.11'}
     dev: false
 
+  /dayjs/1.11.0:
+    resolution: {integrity: sha512-JLC809s6Y948/FuCZPm5IX8rRhQwOiyMb2TfVVQEixG7P8Lm/gt5S7yoQZmC8x1UehI9Pb7sksEt4xx14m+7Ug==}
+    dev: false
+
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     dependencies:
@@ -8090,6 +8110,10 @@ packages:
       chardet: 0.7.0
       iconv-lite: 0.4.24
       tmp: 0.0.33
+    dev: false
+
+  /faker/5.5.3:
+    resolution: {integrity: sha512-wLTv2a28wjUyWkbnX7u/ABZBkUkIF2fCd73V6P2oFqEGEktDfzWx4UxrSqtPRw0xPRAcjeAOIiJWqZm3pP4u3g==}
     dev: false
 
   /fast-base64-decode/1.0.0:
@@ -12891,7 +12915,7 @@ packages:
     dev: false
 
   file:projects/cognito-auth.tgz_8353fd9214bca90a0329e597cbdabd82:
-    resolution: {integrity: sha512-b11HOGB30+jcAxdcW6tEFOq+NAqt9uxdTl3uqLellb5yjWS0SeyxDBKNCiOSD2/EE1MF8OhIuIuTypoamNuWSA==, tarball: file:projects/cognito-auth.tgz}
+    resolution: {integrity: sha512-AaFtv7KfdbfMfior+in457QpwijnV6WmLCd58BmvQx0eurcYzlyVeAv5LwNS1EG5OC8QpGaYi3jKmjnKqW7LEQ==, tarball: file:projects/cognito-auth.tgz}
     id: file:projects/cognito-auth.tgz
     name: '@rush-temp/cognito-auth'
     version: 0.0.0
@@ -12944,11 +12968,12 @@ packages:
     dev: false
 
   file:projects/server.tgz_esbuild@0.14.32:
-    resolution: {integrity: sha512-mY8h6pqGGEiaQ+yoWoQwf3F0UMEAA2x5TxMKInjpSb8/XahQDXC6zVkrW5Z/MDKHskRn5M0L3I8LEHfrJR481g==, tarball: file:projects/server.tgz}
+    resolution: {integrity: sha512-3YyYnYUSduTNCe0WU/jHuXLDXsubcROWIqZ7oaB8c+CgaMUZivdEjuiKbqxsGlF5PkXS4Uj+ygS965iihhsgCQ==, tarball: file:projects/server.tgz}
     id: file:projects/server.tgz
     name: '@rush-temp/server'
     version: 0.0.0
     dependencies:
+      '@jackfranklin/test-data-bot': 1.4.0
       '@nestjs/cli': 8.2.4_esbuild@0.14.32
       '@nestjs/common': 8.4.2_5199533202e21c7185c9d97f881e2827
       '@nestjs/config': 2.0.0_f0f7bf27b9dd8662d8de3791cddb8c93
@@ -12969,6 +12994,7 @@ packages:
       '@typescript-eslint/parser': 5.16.0_eslint@8.12.0+typescript@4.6.2
       class-transformer: 0.5.1
       class-validator: 0.13.2
+      dayjs: 1.11.0
       eslint: 8.12.0
       eslint-config-prettier: 8.5.0_eslint@8.12.0
       eslint-plugin-prettier: 4.0.0_d31a386daced1db91f33c91b25a43736

@@ -12,7 +12,11 @@ import { Config } from '../app.module';
 export class AuthService {
   constructor(private readonly configService: ConfigService<Config>) {}
 
-  registerHook(registerHookDto: RegisterHookDto, hmac: string) {
+  registerHook(
+    registerHookDto: RegisterHookDto,
+    hmac: string,
+    currentTimeMs: number,
+  ) {
     const signingKey = this.configService.get('AUTH_WEBHOOK_SIGNING_KEY');
     if (signingKey === undefined) {
       throw new InternalServerErrorException();
@@ -25,6 +29,12 @@ export class AuthService {
       throw new BadRequestException();
     }
 
-    console.log('SUCCESSFUL REGISTER', registerHookDto);
+    const FIVE_MIN_IN_MS = 1000 * 60 * 5;
+    const isRequestExpired =
+      Math.abs(currentTimeMs - registerHookDto.timestamp) > FIVE_MIN_IN_MS;
+
+    if (isRequestExpired) {
+      throw new BadRequestException();
+    }
   }
 }

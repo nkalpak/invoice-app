@@ -6,14 +6,14 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  /*
+   * Webhook handler for the post-register event in the user pool
+   */
   @Post('register-hook')
   public async registerHook(
     @Body() registerHookDto: RegisterHookDto,
     @Headers('Invoicer-Signature') hmac: string,
   ) {
-    console.log('REG HOOK DTO', registerHookDto);
-    console.log('HMAC', hmac);
-
-    return this.authService.registerHook(registerHookDto, hmac);
+    return this.authService.registerHook(registerHookDto, hmac, Date.now());
   }
 }

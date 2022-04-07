@@ -42,7 +42,9 @@
     "jsonwebtoken": "^8.5.1",
     "nestjs-http-promise": "^1.2.1",
     "jwk-to-pem": "^2.0.5",
-    "@invoicer/hmac": "^1.0.0"
+    "@invoicer/hmac": "^1.0.0",
+    "@jackfranklin/test-data-bot": "^1.4.0",
+    "dayjs": "^1.11.0"
   },
   "devDependencies": {
     "@types/jwk-to-pem": "^2.0.1",

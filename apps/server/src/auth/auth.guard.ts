@@ -218,6 +218,7 @@ export class AuthGuard implements CanActivate {
 }
 
 function isTokenExpired<T extends { exp: number }>(token: T, nowMs: number) {
+  // Token expiry is in UNIX seconds time, while we get the time in ms
   return token.exp < nowMs / 1000;
 }
 
