@@ -2,12 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { InvoiceStatus } from '../interfaces/invoice';
 import { InvoiceItem } from './invoice-item.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Invoice {
@@ -34,12 +37,6 @@ export class Invoice {
 
   @Column({ default: InvoiceStatus.DRAFT })
   status!: InvoiceStatus;
-
-  @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice, {
-    cascade: true,
-    eager: true,
-  })
-  invoiceItems!: InvoiceItem[];
 
   @Column()
   clientName!: string;
@@ -70,4 +67,14 @@ export class Invoice {
 
   @Column()
   senderCountry!: string;
+
+  @OneToMany(() => InvoiceItem, (invoiceItem) => invoiceItem.invoice, {
+    cascade: true,
+    eager: true,
+  })
+  invoiceItems!: InvoiceItem[];
+
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: 'userId' })
+  userId!: string;
 }

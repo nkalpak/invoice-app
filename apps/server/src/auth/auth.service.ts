@@ -7,12 +7,16 @@ import { RegisterHookDto } from './dto/register-hook.dto';
 import { computeRequestSigningHmac } from '@invoicer/hmac';
 import { ConfigService } from '@nestjs/config';
 import { Config } from '../app.module';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly configService: ConfigService<Config>) {}
+  constructor(
+    private readonly configService: ConfigService<Config>,
+    private readonly userService: UserService,
+  ) {}
 
-  registerHook(
+  async registerHook(
     registerHookDto: RegisterHookDto,
     hmac: string,
     currentTimeMs: number,
@@ -36,5 +40,10 @@ export class AuthService {
     if (isRequestExpired) {
       throw new BadRequestException();
     }
+
+    await this.userService.create({
+      id: registerHookDto.username,
+      email: registerHookDto.email,
+    });
   }
 }

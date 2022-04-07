@@ -10,6 +10,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { computeRequestSigningHmac } from '../../../../lib/hmac/src';
 import * as dayjs from 'dayjs';
+import { UserService } from '../user/user.service';
 
 type MockConfigService<T = any> = Partial<
   Record<keyof ConfigService<T>, jest.Mock>
@@ -17,6 +18,13 @@ type MockConfigService<T = any> = Partial<
 function createMockConfigService<T = any>(): MockConfigService<T> {
   return {
     get: jest.fn(),
+  };
+}
+
+type MockUserService = Partial<Record<keyof UserService, jest.Mock>>;
+function createMockUserService(): MockUserService {
+  return {
+    create: jest.fn(),
   };
 }
 
@@ -37,6 +45,7 @@ const buildKey = build<{ key: string }>({
 describe('AuthService', () => {
   let service: AuthService;
   let configService: MockConfigService;
+  let userService: MockUserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -46,20 +55,27 @@ describe('AuthService', () => {
           provide: ConfigService,
           useValue: createMockConfigService(),
         },
+        {
+          provide: UserService,
+          useValue: createMockUserService(),
+        },
       ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
-    configService = module.get<MockConfigService>(ConfigService as any);
+    configService = module.get(ConfigService);
+    userService = module.get(UserService);
   });
 
   describe('registerHook', function () {
     describe('when the signing key is missing from the configuration', function () {
       it('should throw the "InternalServerErrorException"', function () {
         configService.get?.mockReturnValue(undefined);
+        userService.create?.mockReturnValue(undefined);
+
         expect(() =>
           service.registerHook(buildRegisterHookDto(), '', Date.now()),
-        ).toThrow(InternalServerErrorException);
+        ).rejects.toThrow(InternalServerErrorException);
       });
     });
 
@@ -73,10 +89,11 @@ describe('AuthService', () => {
         );
 
         configService.get?.mockReturnValue(keyTwo.key);
+        userService.create?.mockReturnValue(undefined);
 
-        expect(() => service.registerHook(payload, hmac, Date.now())).toThrow(
-          BadRequestException,
-        );
+        expect(() =>
+          service.registerHook(payload, hmac, Date.now()),
+        ).rejects.toThrow(BadRequestException);
       });
     });
 
@@ -93,10 +110,11 @@ describe('AuthService', () => {
         const hmac = computeRequestSigningHmac(JSON.stringify(payload), key);
 
         configService.get?.mockReturnValue(key);
+        userService.create?.mockReturnValue(undefined);
 
         expect(() =>
           service.registerHook(payload, hmac, dayjs().valueOf()),
-        ).toThrow(BadRequestException);
+        ).rejects.toThrow(BadRequestException);
       });
     });
   });

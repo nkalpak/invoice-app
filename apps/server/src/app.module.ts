@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoiceModule } from './invoice/invoice.module';
 import { GlobalModule } from './global/global.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 const configSchema = z.object({
   DATABASE_HOST: z.string(),
@@ -41,6 +42,7 @@ export type Config = z.infer<typeof configSchema>;
     }),
     InvoiceModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
